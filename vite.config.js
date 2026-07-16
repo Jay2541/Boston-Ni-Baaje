@@ -8,6 +8,8 @@ export default defineConfig({
       input: {
         main: resolve(__dirname, 'index.html'),
         schedule: resolve(__dirname, 'schedule.html'),
+        teams: resolve(__dirname, 'teams.html'),
+        discover: resolve(__dirname, 'discover.html'),
         sponsors: resolve(__dirname, 'sponsors.html'),
       },
     },

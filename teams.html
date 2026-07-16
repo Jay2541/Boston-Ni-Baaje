@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" href="/logo.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Teams &mdash; Boston Ni Baaje 1.0</title>
+    <meta name="description" content="Meet the collegiate teams competing at Boston Ni Baaje 1.0, and sign in to your team portal." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Playfair+Display:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+    <header id="site-header"></header>
+
+    <main>
+      <section id="teams">
+        <div class="section-head reveal">
+          <span class="eyebrow">The Lineup</span>
+          <h2>Competing Teams</h2>
+          <p><span id="team-count">8</span> collegiate teams take the stage at the first-ever Boston Ni Baaje.</p>
+        </div>
+        <div class="team-grid" id="team-roster"></div>
+      </section>
+
+      <section id="team-portal" class="reveal">
+        <div class="portal">
+          <div class="portal-info">
+            <span class="eyebrow">Competing Teams</span>
+            <h2>Team Portal</h2>
+            <p>Sign in to view your team's check-in time and stage slot, and to submit your roster, music, and tech needs.</p>
+            <ul class="portal-features">
+              <li>📅 Your personalized schedule</li>
+              <li>🎵 Submit music &amp; tech requirements</li>
+              <li>👥 Manage your roster</li>
+            </ul>
+            <p class="portal-note">Portals open once teams are confirmed. This is a preview.</p>
+          </div>
+          <form class="portal-form" id="team-login-form" novalidate>
+            <h3>Team Sign In</h3>
+            <label>
+              Team name
+              <input type="text" name="team" placeholder="e.g. Northeastern Husky Raas" autocomplete="organization" />
+            </label>
+            <label>
+              Access code
+              <input type="password" name="code" placeholder="Provided by the directors" autocomplete="off" />
+            </label>
+            <button type="submit" class="btn btn-primary">Sign In &rarr;</button>
+            <div id="login-status" class="login-status" role="status" aria-live="polite"></div>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer id="site-footer"></footer>
+
+    <script type="module" src="/src/teams.js"></script>
+  </body>
+</html>

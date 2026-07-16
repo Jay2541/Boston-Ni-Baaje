@@ -1,0 +1,56 @@
+[
+  {
+    "category": "Right by the Venue",
+    "eyebrow": "⚾ In the Fenway",
+    "blurb": "All within a short walk of the Huntington Theatre.",
+    "places": [
+      { "name": "Fenway Park", "tag": "Icon", "desc": "America's oldest ballpark. Tours run year-round.", "url": "https://www.mlb.com/redsox/ballpark/tours" },
+      { "name": "Museum of Fine Arts", "tag": "Art", "desc": "One of the largest art museums in the country.", "url": "https://www.mfa.org/" },
+      { "name": "Isabella Stewart Gardner Museum", "tag": "Art", "desc": "A Venetian palace tucked into the Fenway.", "url": "https://www.gardnermuseum.org/" },
+      { "name": "The Landmark at Fenway", "tag": "Nearby", "desc": "Shops, food, and a cinema by the ballpark.", "url": "https://www.fenwaylandmark.com/" }
+    ]
+  },
+  {
+    "category": "Eat Well",
+    "eyebrow": "🍽️ The good stuff",
+    "blurb": "Local favorites worth the trip — skip the chains.",
+    "places": [
+      { "name": "Sweet Cheeks Q", "tag": "BBQ", "desc": "Tiffani Faison's Fenway smokehouse.", "url": "https://www.sweetcheeksq.com/" },
+      { "name": "Neptune Oyster", "tag": "Seafood", "desc": "The North End's legendary lobster roll.", "url": "https://neptuneoyster.com/" },
+      { "name": "Giulia", "tag": "Italian", "desc": "Cambridge's handmade-pasta destination.", "url": "https://www.giuliarestaurant.com/" },
+      { "name": "Mike & Patty's", "tag": "Brunch", "desc": "Tiny Bay Village spot, cult-favorite sandwiches.", "url": "https://www.mikeandpattys.com/" }
+    ]
+  },
+  {
+    "category": "Nightlife",
+    "eyebrow": "🍸 After hours",
+    "blurb": "Bars and clubs to keep the weekend going.",
+    "places": [
+      { "name": "Bleacher Bar", "tag": "Bar", "desc": "Inside Fenway Park's wall — peek at the field.", "url": "https://www.mlb.com/redsox/ballpark/bleacher-bar" },
+      { "name": "Lookout Rooftop", "tag": "Rooftop", "desc": "Skyline views at the Envoy in the Seaport.", "url": "https://www.lookoutrooftop.com/" },
+      { "name": "The Grand", "tag": "Club", "desc": "Boston's biggest nightclub, in the Seaport.", "url": "https://www.grandboston.com/" },
+      { "name": "Drink", "tag": "Cocktails", "desc": "No menu — bartenders build to your taste.", "url": "https://drinkfortpoint.com/" }
+    ]
+  },
+  {
+    "category": "See the City",
+    "eyebrow": "🗽 Explore",
+    "blurb": "Classic Boston, a quick T ride away.",
+    "places": [
+      { "name": "Freedom Trail", "tag": "History", "desc": "2.5 miles through Revolutionary Boston.", "url": "https://www.thefreedomtrail.org/" },
+      { "name": "Boston Common & Public Garden", "tag": "Outdoors", "desc": "The country's oldest public park.", "url": "https://www.boston.gov/parks/boston-common" },
+      { "name": "Newbury Street", "tag": "Shopping", "desc": "Brownstone-lined blocks of shops and cafés.", "url": "https://www.newbury-st.com/" },
+      { "name": "Harvard Square", "tag": "Day trip", "desc": "Cambridge charm across the river.", "url": "https://www.harvardsquare.com/" }
+    ]
+  },
+  {
+    "category": "Getting Around",
+    "eyebrow": "🚇 The T",
+    "blurb": "Boston is walkable, and the subway covers the rest.",
+    "places": [
+      { "name": "MBTA — Subway & Bus", "tag": "Transit", "desc": "The venue is near the Green Line (Symphony / MFA).", "url": "https://www.mbta.com/" },
+      { "name": "Blue Bikes", "tag": "Bikes", "desc": "Bike share stations across the city.", "url": "https://bluebikes.com/" },
+      { "name": "Logan Airport (BOS)", "tag": "Fly in", "desc": "~20 min from the Fenway.", "url": "https://www.massport.com/logan-airport" }
+    ]
+  }
+]

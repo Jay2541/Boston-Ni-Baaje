@@ -1,0 +1,10 @@
+[
+  { "name": "Northeastern Nakhraas", "school": "Northeastern University", "initials": "NU", "color": "#c8102e" },
+  { "name": "UConn ThundeRaas", "school": "University of Connecticut", "initials": "UC", "color": "#0e1a3c" },
+  { "name": "GT Ramblin' Raas", "school": "Georgia Tech", "initials": "GT", "color": "#b3a369" },
+  { "name": "CMU Raasta", "school": "Carnegie Mellon University", "initials": "CMU", "color": "#c41230" },
+  { "name": "UTD TaRaas", "school": "UT Dallas", "initials": "UTD", "color": "#e87500" },
+  { "name": "Texas Raas", "school": "UT Austin", "initials": "UT", "color": "#bf5700" },
+  { "name": "UF GatoRaas", "school": "University of Florida", "initials": "UF", "color": "#0021a5" },
+  { "name": "UCF KnightRaas", "school": "University of Central Florida", "initials": "UCF", "color": "#ba9b37" }
+]

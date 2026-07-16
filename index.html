@@ -2,13 +2,17 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/logo-placeholder.svg" />
+    <link rel="icon" type="image/png" href="/logo.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Boston Ni Baaje 1.0</title>
+    <title>Boston Ni Baaje 1.0 — Boston's Collegiate Raas Competition</title>
+    <meta
+      name="description"
+      content="Boston Ni Baaje 1.0 — Boston's newest collegiate Raas competition. A weekend of dance, community, and celebration in the Fenway."
+    />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Playfair+Display:wght@500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Playfair+Display:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="/src/style.css" />
@@ -16,36 +20,81 @@
   <body>
     <header id="site-header"></header>
 
-    <div class="hero">
-      <h1>Boston Ni Baaje 1.0</h1>
-      <p>Boston's first collegiate Raas competition in 8 years. An unforgettable weekend of dance, community, and celebration.</p>
-      <a class="cta" href="schedule.html">Schedule &rarr;</a>
-    </div>
+    <section class="hero">
+      <div class="hero-particles"></div>
+      <div class="hero-content">
+        <span class="hero-badge"><span class="dot"></span> Feb 19&ndash;20, 2027 &middot; Huntington Theatre, Boston</span>
+        <h1>Boston Ni Baaje</h1>
+        <p class="subtitle gradient-text">1.0 &mdash; Welcome to Fenway</p>
+        <p class="lead">
+          Boston's newest collegiate Raas competition takes the stage in the heart of the Fenway.
+          An unforgettable weekend of dance, community, and celebration.
+        </p>
+        <div class="hero-cta">
+          <a class="btn btn-primary" href="schedule.html">View Schedule &rarr;</a>
+          <a class="btn btn-outline" href="sponsors.html">Become a Sponsor</a>
+        </div>
+        <div class="countdown" id="countdown"></div>
+      </div>
+    </section>
 
     <main>
-      <section id="about">
-        <h2>About the Competition</h2>
-        <p>
-          Boston Ni Baaje brings collegiate Raas teams from across the region together for a weekend
-          of competition, community, and celebration in the heart of Boston. Follow this site for
-          schedule updates, venue details, and everything teams and guests need for the weekend.
-        </p>
+      <section id="about" class="reveal">
+        <div class="section-head">
+          <span class="eyebrow">The Event</span>
+          <h2>A Night of Rhythm &amp; Color</h2>
+          <p>
+            Boston Ni Baaje brings collegiate Raas teams from across the region together for a weekend
+            of competition, community, and celebration in the heart of Boston.
+          </p>
+        </div>
+        <div class="stats">
+          <div class="stat">
+            <div class="stat-value" data-target="8" data-suffix="">0</div>
+            <div class="stat-label">Collegiate Teams</div>
+          </div>
+          <div class="stat">
+            <div class="stat-value" data-target="600" data-suffix="+">0</div>
+            <div class="stat-label">Guests Expected</div>
+          </div>
+          <div class="stat">
+            <div class="stat-value" data-target="2" data-suffix="">0</div>
+            <div class="stat-label">Days of Dance</div>
+          </div>
+        </div>
       </section>
 
       <section id="highlights">
-        <h2>What to Expect</h2>
+        <div class="section-head reveal">
+          <span class="eyebrow">What to Expect</span>
+          <h2>The Weekend</h2>
+        </div>
         <div class="card-grid">
-          <div class="card">
+          <div class="card reveal">
+            <span class="card-icon">🗓️</span>
             <h3>Full Schedule</h3>
             <p>Check-in, rehearsals, competition, and awards &mdash; all in one place.</p>
           </div>
-          <div class="card">
+          <a class="card reveal" href="teams.html">
+            <span class="card-icon">🏆</span>
             <h3>Live Competition</h3>
-            <p>A full weekend of performances judged by experienced Raas alumni and choreographers.</p>
-          </div>
-          <div class="card">
-            <h3>Boston Experience</h3>
-            <p>Hosted in the heart of Boston, with the city's energy woven into the weekend.</p>
+            <p>Collegiate teams from across the region, judged by experienced Raas alumni. Meet the lineup &rarr;</p>
+          </a>
+          <a class="card reveal" href="discover.html">
+            <span class="card-icon">⚾</span>
+            <h3>Welcome to Fenway</h3>
+            <p>This year's theme takes over the Huntington Theatre, in the heart of the Fenway. Explore the neighborhood &rarr;</p>
+          </a>
+        </div>
+      </section>
+
+      <section id="join" class="reveal">
+        <div class="cta-banner">
+          <h2>Be Part of the First</h2>
+          <p>Whether you're competing, cheering, or sponsoring &mdash; there's a place for you at Boston Ni Baaje 1.0.</p>
+          <div class="hero-cta">
+            <a class="btn btn-primary" href="schedule.html">See the Lineup &rarr;</a>
+            <a class="btn btn-outline" href="sponsors.html">Sponsor Us</a>
           </div>
         </div>
       </section>
