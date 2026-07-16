@@ -2,12 +2,20 @@ import { EVENT, mapsUrl } from './data/event.js';
 
 const BASE = import.meta.env.BASE_URL;
 
+// Register the service worker so the site is installable as an app (PWA).
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register(`${BASE}sw.js`).catch(() => {});
+  });
+}
+
 const NAV_LINKS = [
   { href: 'index.html', label: 'Home' },
   { href: 'schedule.html', label: 'Schedule' },
   { href: 'teams.html', label: 'Teams' },
   { href: 'discover.html', label: 'Discover Boston' },
   { href: 'sponsors.html', label: 'Sponsors' },
+  { href: 'app.html', label: 'Get the App' },
 ];
 
 export function renderHeader(activePage) {

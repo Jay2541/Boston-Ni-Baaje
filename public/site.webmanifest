@@ -1,0 +1,16 @@
+{
+  "name": "Boston Ni Baaje",
+  "short_name": "BNB",
+  "description": "Boston's collegiate Raas competition — schedule, teams, and updates.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#071a14",
+  "theme_color": "#071a14",
+  "orientation": "portrait",
+  "icons": [
+    { "src": "pwa-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "pwa-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "pwa-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

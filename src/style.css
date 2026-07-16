@@ -780,6 +780,69 @@ section > p a, .lead a { color: var(--gold); text-decoration: underline; }
   .portal { grid-template-columns: 1fr; }
 }
 
+/* ---------- Get the App / install guide ---------- */
+.app-benefits { margin-bottom: 2.5rem; }
+.install-guide {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+.install-col {
+  padding: clamp(1.5rem, 4vw, 2.25rem);
+  border-radius: 24px;
+  background: linear-gradient(135deg, rgba(12, 138, 95, 0.14), rgba(10, 35, 64, 0.32)), var(--panel);
+  border: 1px solid var(--panel-border);
+}
+.install-col h3 { color: #fff; font-size: 1.3rem; margin-bottom: 1.25rem; }
+.install-steps {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: step;
+  display: grid;
+  gap: 0.9rem;
+}
+.install-steps li {
+  position: relative;
+  padding-left: 2.5rem;
+  color: var(--text-dim);
+  line-height: 1.5;
+}
+.install-steps li strong { color: var(--text); }
+.install-steps li::before {
+  counter-increment: step;
+  content: counter(step);
+  position: absolute;
+  left: 0;
+  top: -2px;
+  width: 1.7rem;
+  height: 1.7rem;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: #1a0b1e;
+  background: var(--grad-warm);
+}
+.ios-share {
+  display: inline-block;
+  padding: 0 0.15rem;
+  filter: hue-rotate(180deg);
+}
+.install-note {
+  text-align: center;
+  color: var(--gold);
+  font-size: 0.9rem;
+  margin: 2rem auto 0;
+  max-width: 560px;
+}
+
+@media (max-width: 720px) {
+  .install-guide { grid-template-columns: 1fr; }
+}
+
 /* ---------- Reveal animation ---------- */
 .reveal {
   opacity: 0;

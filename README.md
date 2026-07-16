@@ -12,6 +12,10 @@ Features: sticky glass nav with mobile menu, animated hero with floating particl
 timer to the event, scroll-reveal animations, animated stat counters, and a day-grouped schedule
 timeline. Respects `prefers-reduced-motion`.
 
+The site is also an installable **PWA** (Progressive Web App) — visitors can "Add to Home Screen"
+and it opens full-screen like a real app, works offline, and uses the BNB icon. See
+[App & notifications](#app--notifications) for what's done and what's left.
+
 ## Local development
 
 ```
@@ -26,6 +30,7 @@ npm run dev
 - `teams.html` — competing-teams roster + team sign-in (portal preview, no backend yet)
 - `discover.html` — things to do around Boston (food, nightlife, sights, transit)
 - `sponsors.html` — sponsor logos, ad space, sponsorship contact
+- `app.html` — "Get the App" install instructions (iPhone + Android)
 
 ## Updating content
 
@@ -52,11 +57,46 @@ Live at: `https://<github-username>.github.io/Boston-Ni-Baaje/`
 
 ## TODO before launch
 
-- Swap `public/logo.svg` (crossed-dandiya placeholder) for the real BNB logo
+- Wire up push notifications — see [App & notifications](#app--notifications) (the Firebase step)
 - Replace sponsor logo placeholders in `sponsors.html`
 - Confirm event details in `src/data/event.js` (Feb 19–20, 2027 at the Huntington Theatre; `startISO` drives the countdown — update the year if the date shifts)
 - Fill in real schedule data in `src/data/schedule.json`
 - Update the homepage stat numbers in `index.html` (`data-target` values)
+
+## App & notifications
+
+The site is installable as a PWA. Here's the state of the "app" experience:
+
+**✅ Done (free, no accounts needed):**
+
+- Installable on iPhone (Safari → Share → Add to Home Screen) and Android (Chrome → Install app).
+- Opens full-screen with the BNB icon; works offline via a service worker (`public/sw.js`).
+- Web app manifest (`public/site.webmanifest`) + iOS meta tags on every page.
+- App icons generated from the logo: `public/apple-touch-icon.png`, `pwa-192.png`, `pwa-512.png`.
+- A "Get the App" page (`app.html`) with step-by-step install instructions, linked in the nav and
+  the homepage hero.
+
+**⛔ NOT done yet — push notifications (the only thing left):**
+
+Sending notifications ("live updates from the directors") is **not wired up**. A static site on
+GitHub Pages can't *send* push messages by itself — it needs a sender. The plan is
+**Firebase Cloud Messaging (FCM)**, which is **free** (FCM has no cost; the rest of Firebase has a
+free tier that's far more than this event needs, and it never charges without you manually adding a
+card).
+
+What's left to make notifications work:
+
+1. **[needs you]** Create a free Firebase project (~5 min, Google account, no card on the free plan)
+   and copy its web config snippet.
+2. **[code]** Add the Firebase SDK + push-subscription code to the installed app.
+3. **[code]** Add a simple "send an update" flow for the directors + an in-app Updates feed as a
+   reliable fallback (shown when the app opens, so it works even without push).
+
+> Note: on iPhone, web push only works **after** the user installs the site to their home screen and
+> opens it from that icon — not from a normal Safari tab. That's an Apple restriction, hence the
+> "Get the App" instructions. If push reach/reliability ever proves insufficient, the fallback is a
+> native App Store build (Capacitor wraps this same site) — that path costs $99/yr for an Apple
+> Developer account and requires a Mac.
 
 ## Later (v2)
 
