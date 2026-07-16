@@ -1,0 +1,6 @@
+[
+  { "time": "Fri 6:00 PM", "event": "Team Check-In", "location": "Blackman Auditorium Lobby" },
+  { "time": "Fri 7:00 PM", "event": "Tech Rehearsals", "location": "Blackman Auditorium" },
+  { "time": "Sat 12:00 PM", "event": "Competition", "location": "Blackman Auditorium" },
+  { "time": "Sat 8:00 PM", "event": "Awards & Closing", "location": "Blackman Auditorium" }
+]
