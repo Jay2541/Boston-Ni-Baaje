@@ -1,6 +1,7 @@
 import { renderHeader, renderFooter, initReveal } from './layout.js';
 import { auth, db } from './firebase.js';
 import { resolveMember, TEAM_ACCOUNTS } from './data/members.js';
+import { broadcast } from './data/updates.js';
 import {
   signInWithEmailAndPassword,
   signOut,
@@ -20,7 +21,7 @@ import {
 renderHeader('teams.html');
 renderFooter();
 
-/* ---------- Competing teams roster (always shown) ---------- */
+/* ---------- Competing teams roster (shown when signed out) ---------- */
 const rosterEl = document.getElementById('team-roster');
 if (rosterEl) {
   rosterEl.innerHTML = TEAM_ACCOUNTS.map(
@@ -37,9 +38,11 @@ if (rosterEl) {
 const countEl = document.getElementById('team-count');
 if (countEl) countEl.textContent = TEAM_ACCOUNTS.length;
 
-// Reveal the .reveal sections (roster + portal). Without this they stay hidden.
 initReveal();
 
+const rosterSection = document.getElementById('teams');
+const portalSection = document.getElementById('team-portal');
+const portalHead = document.getElementById('portal-head');
 const loginView = document.getElementById('portal-login');
 const chatView = document.getElementById('portal-chat');
 const loginForm = document.getElementById('portal-login-form');
@@ -52,6 +55,9 @@ onAuthStateChanged(auth, (user) => {
   if (unsubMessages) { unsubMessages(); unsubMessages = null; }
 
   if (!user) {
+    // Signed out: show the marketing roster + login form.
+    if (rosterSection) rosterSection.hidden = false;
+    if (portalHead) portalHead.hidden = false;
     loginView.hidden = false;
     chatView.hidden = true;
     return;
@@ -59,12 +65,14 @@ onAuthStateChanged(auth, (user) => {
 
   const member = resolveMember(user);
   if (member.role === 'unknown') {
-    // Signed in but not a recognized team/board account.
     signOut(auth);
     showLoginError('This account isn’t set up for the portal. Contact the directors.');
     return;
   }
 
+  // Signed in: hide the marketing sections, show the app-like console.
+  if (rosterSection) rosterSection.hidden = true;
+  if (portalHead) portalHead.hidden = true;
   loginView.hidden = true;
   chatView.hidden = false;
   member.role === 'board' ? renderBoard() : renderTeam(member.team);
@@ -108,70 +116,151 @@ function friendlyAuthError(err) {
   return 'Could not sign in. Please try again.';
 }
 
-/* ---------- Team view: single thread ---------- */
+/* ============================================================
+   TEAM VIEW — one full chat with the directors
+   ============================================================ */
 function renderTeam(team) {
   chatView.innerHTML = `
-    <div class="chat-shell">
-      <div class="chat-topbar">
+    <div class="console console-team">
+      <div class="console-topbar">
         <div>
           <span class="chat-eyebrow">Team Portal</span>
           <h3>${team.name}</h3>
         </div>
         <button class="btn-ghost" id="signout-btn">Sign out</button>
       </div>
+      <p class="console-sub">Chat directly with the Boston Ni Baaje directors. They'll see your messages in real time.</p>
       <div class="chat-log" id="chat-log"><p class="chat-empty">Loading messages…</p></div>
-      ${composer()}
+      ${composer('Message the directors…')}
     </div>
   `;
   wireSignOut();
   openThread(team.id, 'team');
 }
 
-/* ---------- Board view: pick a team, then its thread ---------- */
+/* ============================================================
+   DIRECTOR CONSOLE — sidebar + main panel
+   ============================================================ */
 function renderBoard() {
-  const tabs = TEAM_ACCOUNTS.map(
-    (t, i) => `<button class="team-tab${i === 0 ? ' active' : ''}" data-team="${t.id}" data-name="${t.name}">${t.name}</button>`
+  const teamItems = TEAM_ACCOUNTS.map(
+    (t) => `
+      <button class="console-nav-item" data-view="team" data-team="${t.id}" data-name="${t.name}">
+        <span class="console-crest" style="--crest:${t.color || 'var(--gold)'}">${t.initials || ''}</span>
+        <span class="console-nav-label">${t.name}</span>
+      </button>`
   ).join('');
 
   chatView.innerHTML = `
-    <div class="chat-shell chat-shell-board">
-      <div class="chat-topbar">
-        <div>
-          <span class="chat-eyebrow">Director Inbox</span>
-          <h3 id="board-active-team">${TEAM_ACCOUNTS[0].name}</h3>
+    <div class="console console-board">
+      <aside class="console-side">
+        <div class="console-side-head">
+          <span class="chat-eyebrow">Director Console</span>
+          <button class="btn-ghost" id="signout-btn">Sign out</button>
         </div>
-        <button class="btn-ghost" id="signout-btn">Sign out</button>
-      </div>
-      <div class="board-tabs">${tabs}</div>
-      <div class="chat-log" id="chat-log"><p class="chat-empty">Loading messages…</p></div>
-      ${composer()}
+        <button class="console-nav-item announce-item active" data-view="announce">
+          <span class="console-crest announce-crest">📢</span>
+          <span class="console-nav-label">Announce to All Teams</span>
+        </button>
+        <div class="console-side-label">Team Chats</div>
+        <div class="console-nav-list">${teamItems}</div>
+      </aside>
+      <section class="console-main" id="console-main"></section>
     </div>
   `;
   wireSignOut();
 
-  const tabEls = chatView.querySelectorAll('.team-tab');
-  tabEls.forEach((tab) => {
-    tab.addEventListener('click', () => {
-      tabEls.forEach((t) => t.classList.remove('active'));
-      tab.classList.add('active');
-      document.getElementById('board-active-team').textContent = tab.dataset.name;
-      openThread(tab.dataset.team, 'board');
+  const items = chatView.querySelectorAll('.console-nav-item');
+  items.forEach((item) => {
+    item.addEventListener('click', () => {
+      items.forEach((i) => i.classList.remove('active'));
+      item.classList.add('active');
+      if (item.dataset.view === 'announce') {
+        showAnnounceView();
+      } else {
+        showTeamChat(item.dataset.team, item.dataset.name);
+      }
     });
   });
 
-  openThread(TEAM_ACCOUNTS[0].id, 'board');
+  // Default landing view = the broadcast panel (the thing directors do most).
+  showAnnounceView();
 }
 
-function composer() {
+/* ---------- Board: Announce-to-all panel ---------- */
+function showAnnounceView() {
+  if (unsubMessages) { unsubMessages(); unsubMessages = null; }
+  const main = document.getElementById('console-main');
+  main.innerHTML = `
+    <div class="announce-panel">
+      <div class="announce-header">
+        <span class="announce-badge">📢 Broadcast</span>
+        <h3>Announce to All Teams</h3>
+        <p>Posts to the in-app Updates feed <strong>and</strong> pushes a notification to every phone that turned notifications on. All ${TEAM_ACCOUNTS.length} teams see it.</p>
+      </div>
+      <form class="announce-form" id="announce-form">
+        <label>Title
+          <input type="text" id="an-title" placeholder="e.g. Doors open at noon" maxlength="80" required />
+        </label>
+        <label>Message
+          <textarea id="an-body" placeholder="Head to the Huntington Theatre lobby to check in." rows="4" maxlength="500" required></textarea>
+        </label>
+        <button type="submit" class="btn btn-primary">📣 Send to All Teams</button>
+        <div id="an-status" class="post-status" role="status" hidden></div>
+      </form>
+    </div>
+  `;
+
+  const form = document.getElementById('announce-form');
+  const status = document.getElementById('an-status');
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const title = document.getElementById('an-title').value;
+    const body = document.getElementById('an-body').value;
+    if (!title.trim() || !body.trim()) return;
+    const btn = form.querySelector('button');
+    btn.disabled = true;
+    btn.textContent = 'Sending…';
+    try {
+      const { pushed } = await broadcast({ title, body });
+      form.reset();
+      showStatus(status, pushed
+        ? '✅ Sent to all teams — feed updated and phones notified!'
+        : '✅ Posted to the feed for all teams. (Push not sent — check Worker setup.)', true);
+    } catch {
+      showStatus(status, 'Could not send. Make sure you’re signed in as the board.', false);
+    } finally {
+      btn.disabled = false;
+      btn.textContent = '📣 Send to All Teams';
+    }
+  });
+}
+
+/* ---------- Board: one team's chat ---------- */
+function showTeamChat(teamId, teamName) {
+  const main = document.getElementById('console-main');
+  main.innerHTML = `
+    <div class="console-chat">
+      <div class="console-chat-head">
+        <span class="chat-eyebrow">Direct chat</span>
+        <h3>${teamName}</h3>
+      </div>
+      <div class="chat-log" id="chat-log"><p class="chat-empty">Loading messages…</p></div>
+      ${composer('Reply to ' + teamName + '…')}
+    </div>
+  `;
+  openThread(teamId, 'board');
+}
+
+function composer(placeholder) {
   return `
     <form class="chat-composer" id="chat-form">
-      <input type="text" id="chat-input" placeholder="Type a message…" autocomplete="off" maxlength="1000" />
+      <input type="text" id="chat-input" placeholder="${placeholder}" autocomplete="off" maxlength="1000" />
       <button type="submit" class="btn btn-primary" aria-label="Send">➤</button>
     </form>
   `;
 }
 
-/* ---------- Live thread ---------- */
+/* ---------- Live thread (shared by team + board chat) ---------- */
 function openThread(teamId, senderRole) {
   if (unsubMessages) { unsubMessages(); unsubMessages = null; }
 
@@ -186,9 +275,7 @@ function openThread(teamId, senderRole) {
         log.innerHTML = `<p class="chat-empty">No messages yet. Say hello 👋</p>`;
         return;
       }
-      log.innerHTML = snap.docs
-        .map((d) => renderBubble(d.data(), senderRole))
-        .join('');
+      log.innerHTML = snap.docs.map((d) => renderBubble(d.data(), senderRole)).join('');
       log.scrollTop = log.scrollHeight;
     },
     () => {
@@ -204,12 +291,7 @@ function openThread(teamId, senderRole) {
     if (!text) return;
     input.value = '';
     try {
-      await addDoc(msgs, {
-        text,
-        from: senderRole, // 'team' | 'board'
-        createdAt: serverTimestamp(),
-      });
-      // Touch the thread doc so the board could sort by latest activity later.
+      await addDoc(msgs, { text, from: senderRole, createdAt: serverTimestamp() });
       await setDoc(
         doc(db, 'threads', teamId),
         { lastMessage: text, lastFrom: senderRole, updatedAt: serverTimestamp() },
@@ -242,6 +324,12 @@ function wireSignOut() {
   if (btn) btn.addEventListener('click', () => signOut(auth));
 }
 
+function showStatus(el, msg, ok) {
+  el.textContent = msg;
+  el.hidden = false;
+  el.className = `post-status ${ok ? 'ok' : 'err'}`;
+}
+
 function escapeHtml(s) {
-  return s.replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  return String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 }

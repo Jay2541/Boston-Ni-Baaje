@@ -1,9 +1,9 @@
 import { renderHeader, renderFooter } from './layout.js';
 import { auth, VAPID_PUBLIC_KEY, PUSH_WORKER_URL } from './firebase.js';
 import { resolveMember } from './data/members.js';
-import { watchAnnouncements, postAnnouncement } from './data/updates.js';
+import { watchAnnouncements, broadcast } from './data/updates.js';
 import { enablePush, pushSupported, notifPermission } from './push.js';
-import { onAuthStateChanged, getIdToken } from 'firebase/auth';
+import { onAuthStateChanged } from 'firebase/auth';
 
 renderHeader('updates.html');
 renderFooter();
@@ -129,23 +129,7 @@ onAuthStateChanged(auth, (user) => {
     btn.disabled = true;
     btn.textContent = 'Posting…';
     try {
-      // 1) Always save to the feed (everyone sees it in-app).
-      await postAnnouncement({ title, body });
-
-      // 2) If the push Worker is configured, also buzz subscribed phones.
-      let pushed = false;
-      if (PUSH_WORKER_URL) {
-        try {
-          const idToken = await getIdToken(auth.currentUser);
-          const res = await fetch(`${PUSH_WORKER_URL}/send`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ idToken, title: title.trim(), body: body.trim() }),
-          });
-          pushed = res.ok;
-        } catch { /* feed post already succeeded; push is best-effort */ }
-      }
-
+      const { pushed } = await broadcast({ title, body });
       form.reset();
       showStatus(
         status,
