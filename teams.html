@@ -34,37 +34,47 @@
       </section>
 
       <section id="team-portal" class="reveal">
-        <div class="portal">
+        <div class="section-head">
+          <span class="eyebrow">Competing Teams</span>
+          <h2>Team Portal</h2>
+          <p>Message the directors directly &mdash; ask questions, submit your music and tech needs, and get updates in real time.</p>
+        </div>
+
+        <!-- Login view (shown when signed out) -->
+        <div class="portal" id="portal-login">
           <div class="portal-info">
-            <span class="eyebrow">Competing Teams</span>
-            <h2>Team Portal</h2>
-            <p>Sign in to view your team's check-in time and stage slot, and to submit your roster, music, and tech needs.</p>
+            <span class="eyebrow">What's Inside</span>
+            <h2>Your Direct Line</h2>
+            <p>Sign in with the credentials the directors gave your team.</p>
             <ul class="portal-features">
-              <li>📅 Your personalized schedule</li>
+              <li>💬 Message the directors directly</li>
               <li>🎵 Submit music &amp; tech requirements</li>
-              <li>👥 Manage your roster</li>
+              <li>🔔 Get replies and updates in real time</li>
             </ul>
-            <p class="portal-note">Portals open once teams are confirmed. This is a preview.</p>
+            <p class="portal-note">Don't have a login? Email the directors to get set up.</p>
           </div>
-          <form class="portal-form" id="team-login-form" novalidate>
+          <form class="portal-form" id="portal-login-form" novalidate>
             <h3>Team Sign In</h3>
             <label>
-              Team name
-              <input type="text" name="team" placeholder="e.g. Northeastern Husky Raas" autocomplete="organization" />
+              Email
+              <input type="email" name="email" placeholder="yourteam@bnb.team" autocomplete="username" required />
             </label>
             <label>
-              Access code
-              <input type="password" name="code" placeholder="Provided by the directors" autocomplete="off" />
+              Password
+              <input type="password" name="password" placeholder="Provided by the directors" autocomplete="current-password" required />
             </label>
             <button type="submit" class="btn btn-primary">Sign In &rarr;</button>
-            <div id="login-status" class="login-status" role="status" aria-live="polite"></div>
+            <div id="portal-login-error" class="login-error" role="alert" hidden></div>
           </form>
         </div>
+
+        <!-- Chat view (shown when signed in) -->
+        <div id="portal-chat" hidden></div>
       </section>
     </main>
 
     <footer id="site-footer"></footer>
 
-    <script type="module" src="/src/teams.js"></script>
+    <script type="module" src="/src/portal.js"></script>
   </body>
 </html>

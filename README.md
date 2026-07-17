@@ -27,7 +27,8 @@ npm run dev
 
 - `index.html` — homepage
 - `schedule.html` — event schedule, venue location, and contact
-- `teams.html` — competing-teams roster + team sign-in (portal preview, no backend yet)
+- `teams.html` — competing-teams roster + team portal (real Firebase login + two-way chat with the directors; board account sees all threads)
+- `updates.html` — live announcements feed (board posts; everyone reads) + opt-in push notifications
 - `discover.html` — things to do around Boston (food, nightlife, sights, transit)
 - `sponsors.html` — sponsor logos, ad space, sponsorship contact
 - `app.html` — "Get the App" install instructions (iPhone + Android)
@@ -76,32 +77,36 @@ The site is installable as a PWA. Here's the state of the "app" experience:
 - A "Get the App" page (`app.html`) with step-by-step install instructions, linked in the nav and
   the homepage hero.
 
-**⛔ NOT done yet — push notifications (the only thing left):**
+**✅ Notifications & Updates feed (built — Firebase):**
 
-Sending notifications ("live updates from the directors") is **not wired up**. A static site on
-GitHub Pages can't *send* push messages by itself — it needs a sender. The plan is
-**Firebase Cloud Messaging (FCM)**, which is **free** (FCM has no cost; the rest of Firebase has a
-free tier that's far more than this event needs, and it never charges without you manually adding a
-card).
+- **Updates feed** (`updates.html`): the board posts announcements; everyone reads them in-app.
+  Reliable delivery even without push. Free, no card.
+- **Push notifications**: opt-in "Turn on notifications" button. The board **posts an announcement
+  from any phone** → it saves to the feed *and* buzzes every subscribed device. Sending is handled by
+  a free Cloudflare Worker (`worker/`) — no laptop, no credit card.
 
-What's left to make notifications work:
-
-1. **[needs you]** Create a free Firebase project (~5 min, Google account, no card on the free plan)
-   and copy its web config snippet.
-2. **[code]** Add the Firebase SDK + push-subscription code to the installed app.
-3. **[code]** Add a simple "send an update" flow for the directors + an in-app Updates feed as a
-   reliable fallback (shown when the app opens, so it works even without push).
+**To turn it on, follow [`FIREBASE_SETUP.md`](./FIREBASE_SETUP.md):** publish `firestore.rules`, add
+the VAPID key to `src/firebase.js` (done), and deploy the Worker per [`worker/README.md`](./worker/README.md)
+then set `PUSH_WORKER_URL`.
 
 > Note: on iPhone, web push only works **after** the user installs the site to their home screen and
 > opens it from that icon — not from a normal Safari tab. That's an Apple restriction, hence the
-> "Get the App" instructions. If push reach/reliability ever proves insufficient, the fallback is a
-> native App Store build (Capacitor wraps this same site) — that path costs $99/yr for an Apple
-> Developer account and requires a Mac.
+> "Get the App" instructions. The Updates feed reaches everyone regardless. If push reach ever proves
+> insufficient, the fallback is a native App Store build (Capacitor wraps this same site) — that path
+> costs $99/yr for an Apple Developer account and requires a Mac.
 
-## Later (v2)
+## Firebase (team portal + notifications)
 
-- **Team portal with real auth** — the `teams.html` sign-in form is currently a front-end preview
-  (it shows a "coming soon" message on submit). To make it real you'll need a backend/auth layer
-  (e.g. a serverless function + a database, or a hosted auth provider). Once a team logs in, they'd
-  see their own check-in time and stage slot, and be able to submit roster, music, and tech needs.
-  Per-team data would move out of the static JSON into that backend.
+The Teams page has a **real team portal** backed by Firebase (project `boston-ni-baaje`):
+
+- **Team login** (Firebase Auth, one shared account per team) + a **board/director account**.
+- **Two-way real-time chat** (Firestore): each team has a private thread; the board account sees
+  every thread and can reply. History is immutable.
+- Code lives in `src/firebase.js`, `src/portal.js`, `src/data/members.js`; rules in `firestore.rules`.
+
+**⚠️ Not live until you finish the console steps in [`FIREBASE_SETUP.md`](./FIREBASE_SETUP.md):**
+enable Email/Password auth, create the accounts (deferred until the competing teams are confirmed),
+and publish `firestore.rules`. **Push notifications (Phase 1) are not built yet** — see that doc.
+
+When the real teams are known, update `src/data/members.js` **and** `firestore.rules` together so the
+emails/team ids match, then create the matching users in the console.

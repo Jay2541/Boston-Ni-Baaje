@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" href="/logo.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="theme-color" content="#071a14" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Boston Ni Baaje" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Updates &mdash; Boston Ni Baaje 1.0</title>
+    <meta name="description" content="Live announcements and updates from the Boston Ni Baaje directors." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Playfair+Display:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+    <header id="site-header"></header>
+
+    <main>
+      <section id="updates">
+        <div class="section-head reveal">
+          <span class="eyebrow">📣 Live from the Directors</span>
+          <h2>Updates</h2>
+          <p>Announcements as the weekend unfolds. Install the app and turn on notifications to get these on your phone.</p>
+        </div>
+
+        <div id="notif-cta" class="notif-cta" hidden></div>
+        <div id="updates-composer" hidden></div>
+        <div id="updates-feed" class="updates-feed"><p class="chat-empty">Loading updates…</p></div>
+      </section>
+    </main>
+
+    <footer id="site-footer"></footer>
+
+    <script type="module" src="/src/updates.js"></script>
+  </body>
+</html>

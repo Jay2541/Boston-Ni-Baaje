@@ -1,0 +1,12 @@
+name = "bnb-push"
+main = "src/worker.js"
+compatibility_date = "2024-11-01"
+
+# Public/non-secret values. The SERVICE_ACCOUNT is a SECRET — set it with:
+#   wrangler secret put SERVICE_ACCOUNT
+# (paste the entire service-account.json contents when prompted). Never put it here.
+[vars]
+FIREBASE_API_KEY = "AIzaSyB5pgda5BZkSkzDlm0Wr-1WKw70MKU_Hqk"
+BOARD_EMAIL = "board@bostonnibaaje.com"
+PROJECT_ID = "boston-ni-baaje"
+ALLOW_ORIGIN = "https://Jay2541.github.io"

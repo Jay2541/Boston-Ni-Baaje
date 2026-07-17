@@ -1,0 +1,69 @@
+rules_version = '2';
+
+// Firestore security rules for the Boston Ni Baaje team portal.
+//
+// HOW TO APPLY: Firebase console → Build → Firestore Database → Rules tab →
+// paste this whole file → Publish.
+//
+// Model: one thread per team (doc id = team id, e.g. "northeastern").
+//   - A team account can read/write ONLY its own thread.
+//   - The board account can read/write ALL threads.
+//
+// The email→team map below MUST match src/data/members.js. When the real teams
+// are confirmed, update BOTH files together (emails are login IDs, not secrets).
+
+service cloud.firestore {
+
+  function boardEmail() {
+    return 'board@bostonnibaaje.com';
+  }
+
+  // email → teamId. Keep in sync with TEAM_ACCOUNTS in src/data/members.js.
+  function teamMap() {
+    return {
+      'northeastern@bnb.team': 'northeastern',
+      'uconn@bnb.team': 'uconn',
+      'gatech@bnb.team': 'gatech',
+      'cmu@bnb.team': 'cmu',
+      'utd@bnb.team': 'utd',
+      'texas@bnb.team': 'texas',
+      'uf@bnb.team': 'uf',
+      'ucf@bnb.team': 'ucf'
+    };
+  }
+
+  function userEmail() {
+    return request.auth != null ? request.auth.token.email : '';
+  }
+
+  function isBoard() {
+    return request.auth != null && userEmail() == boardEmail();
+  }
+
+  function ownsTeam(teamId) {
+    return request.auth != null && teamMap()[userEmail()] == teamId;
+  }
+
+  match /databases/{database}/documents {
+
+    // Team threads + their messages.
+    match /threads/{teamId} {
+      allow read, write: if isBoard() || ownsTeam(teamId);
+
+      match /messages/{messageId} {
+        allow read:   if isBoard() || ownsTeam(teamId);
+        allow create: if isBoard() || ownsTeam(teamId);
+        // History is immutable — no edits or deletes.
+        allow update, delete: if false;
+      }
+    }
+
+    // Announcements ("Updates" feed): anyone can read; only the board posts.
+    // (Push delivery is handled by the Cloudflare Worker via FCM topics, not Firestore.)
+    match /announcements/{id} {
+      allow read:   if true;
+      allow create: if isBoard();
+      allow update, delete: if isBoard();
+    }
+  }
+}

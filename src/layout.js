@@ -12,6 +12,7 @@ if ('serviceWorker' in navigator) {
 const NAV_LINKS = [
   { href: 'index.html', label: 'Home' },
   { href: 'schedule.html', label: 'Schedule' },
+  { href: 'updates.html', label: 'Updates' },
   { href: 'teams.html', label: 'Teams' },
   { href: 'discover.html', label: 'Discover Boston' },
   { href: 'sponsors.html', label: 'Sponsors' },
