@@ -14,9 +14,8 @@ const NAV_LINKS = [
   { href: 'schedule.html', label: 'Schedule' },
   { href: 'updates.html', label: 'Updates' },
   { href: 'teams.html', label: 'Teams' },
-  { href: 'discover.html', label: 'Discover Boston' },
+  { href: 'discover.html', label: 'Discover' },
   { href: 'sponsors.html', label: 'Sponsors' },
-  { href: 'app.html', label: 'Get the App' },
 ];
 
 export function renderHeader(activePage) {
@@ -92,6 +91,7 @@ export function renderFooter() {
         </div>
       </div>
       <div class="footer-links">
+        <a href="${BASE}app.html">Get the App</a>
         <a href="mailto:${EVENT.contact.info}">${EVENT.contact.info}</a>
         <a href="${mapsUrl(EVENT.venue.mapsQuery)}" target="_blank" rel="noopener">${EVENT.venue.name}</a>
         <a href="${EVENT.social.instagram}" target="_blank" rel="noopener">Instagram</a>
