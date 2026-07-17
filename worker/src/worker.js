@@ -17,7 +17,7 @@ const TOPIC = 'all';
 
 export default {
   async fetch(request, env) {
-    const cors = corsHeaders(env);
+    const cors = corsHeaders(env, request);
     if (request.method === 'OPTIONS') return new Response(null, { headers: cors });
 
     const url = new URL(request.url);
@@ -160,11 +160,21 @@ function b64urlBytes(bytes) {
   return btoa(bin).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
 }
 
-function corsHeaders(env) {
+function corsHeaders(env, request) {
+  // Echo the caller's Origin when it matches ALLOW_ORIGIN (case-insensitively),
+  // because browsers require an EXACT case match on Access-Control-Allow-Origin
+  // and GitHub Pages sends the origin lowercased (jay2541 vs Jay2541).
+  const reqOrigin = request?.headers?.get('Origin') || '';
+  const allowed = env.ALLOW_ORIGIN || '*';
+  const origin =
+    allowed === '*' ? '*'
+    : reqOrigin && reqOrigin.toLowerCase() === allowed.toLowerCase() ? reqOrigin
+    : allowed;
   return {
-    'Access-Control-Allow-Origin': env.ALLOW_ORIGIN || '*',
+    'Access-Control-Allow-Origin': origin,
     'Access-Control-Allow-Methods': 'POST, OPTIONS',
     'Access-Control-Allow-Headers': 'Content-Type',
+    Vary: 'Origin',
   };
 }
 function json(obj, status, headers) {

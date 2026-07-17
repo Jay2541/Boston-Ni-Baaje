@@ -241,37 +241,65 @@ h1, h2, h3, h4 {
 .btn {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 0.5rem;
+  font-family: inherit;
   font-weight: 700;
   font-size: 0.95rem;
-  padding: 0.85rem 1.75rem;
+  line-height: 1;
+  min-height: 46px;                 /* comfortable, consistent tap target */
+  padding: 0 1.6rem;
   border-radius: 999px;
-  border: 0;
+  border: 1px solid transparent;
   cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 0.15s ease, box-shadow 0.2s ease, filter 0.2s ease, background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
 }
+.btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(240, 193, 75, 0.45);
+}
+.btn:disabled { opacity: 0.6; cursor: default; transform: none !important; filter: none !important; }
+
 .btn-primary {
   background: var(--grad-warm);
-  color: #1a0b1e;
-  box-shadow: 0 12px 30px -10px rgba(247, 37, 133, 0.6);
+  color: #2a1206;
+  box-shadow: 0 10px 24px -12px rgba(232, 149, 43, 0.7);
 }
-.btn-primary:hover { transform: translateY(-2px); filter: brightness(1.06); }
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 16px 30px -14px rgba(232, 149, 43, 0.85); }
+.btn-primary:active { transform: translateY(0) scale(0.98); }
+
+.btn-outline {
+  background: rgba(255, 255, 255, 0.02);
+  color: #fff;
+  border-color: var(--panel-border);
+}
+.btn-outline:hover { border-color: var(--gold); color: var(--gold); background: rgba(240, 193, 75, 0.06); }
+.btn-outline:active { transform: scale(0.98); }
+
 .btn-ghost {
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
   color: var(--gold);
   font-weight: 700;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  padding: 0.4rem 0;
   border-bottom: 1px solid transparent;
-  transition: border-color 0.2s ease;
+  transition: border-color 0.2s ease, opacity 0.2s ease;
 }
 .btn-ghost:hover { border-bottom-color: var(--gold); }
-.btn-outline {
-  background: transparent;
-  color: #fff;
-  border: 1px solid var(--panel-border);
+.btn-ghost:active { opacity: 0.7; }
+
+/* On phones, primary/outline CTAs go full-width so they read as clean, tappable bars */
+@media (max-width: 560px) {
+  .hero-cta { flex-direction: column; align-items: stretch; }
+  .hero-cta .btn { width: 100%; }
+  .cta-banner .hero-cta .btn { width: 100%; }
 }
-.btn-outline:hover { border-color: var(--gold); color: var(--gold); }
 
 /* ---------- Hero ---------- */
 .hero {
@@ -967,10 +995,12 @@ section > p a, .lead a { color: var(--gold); text-decoration: underline; }
   box-shadow: 0 0 0 3px rgba(240, 193, 75, 0.18);
 }
 .chat-composer .btn {
-  padding: 0.75rem 1.1rem;
+  padding: 0;
+  width: 46px;
   border-radius: 50%;
   aspect-ratio: 1;
-  font-size: 1rem;
+  flex-shrink: 0;
+  font-size: 1.05rem;
 }
 
 /* ---------- Portal console (signed-in dashboard) ---------- */

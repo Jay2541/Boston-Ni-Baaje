@@ -1,15 +1,12 @@
 import { renderHeader, renderFooter } from './layout.js';
-import { auth, VAPID_PUBLIC_KEY, PUSH_WORKER_URL } from './firebase.js';
-import { resolveMember } from './data/members.js';
-import { watchAnnouncements, broadcast } from './data/updates.js';
+import { VAPID_PUBLIC_KEY, PUSH_WORKER_URL } from './firebase.js';
+import { watchAnnouncements } from './data/updates.js';
 import { enablePush, pushSupported, notifPermission } from './push.js';
-import { onAuthStateChanged } from 'firebase/auth';
 
 renderHeader('updates.html');
 renderFooter();
 
 const feedEl = document.getElementById('updates-feed');
-const composerSlot = document.getElementById('updates-composer');
 
 /* ---------- "Turn on notifications" prompt ---------- */
 initNotifCta();
@@ -99,59 +96,8 @@ function renderUpdate(u) {
     </article>`;
 }
 
-/* ---------- Board-only composer ---------- */
-onAuthStateChanged(auth, (user) => {
-  const member = resolveMember(user);
-  if (member.role !== 'board') {
-    composerSlot.hidden = true;
-    composerSlot.innerHTML = '';
-    return;
-  }
-  composerSlot.hidden = false;
-  composerSlot.innerHTML = `
-    <form class="update-composer" id="post-update">
-      <span class="chat-eyebrow">Post an announcement (visible to everyone)</span>
-      <input type="text" id="up-title" placeholder="Title — e.g. Doors open at noon" maxlength="80" required />
-      <textarea id="up-body" placeholder="Details…" rows="3" maxlength="500" required></textarea>
-      <button type="submit" class="btn btn-primary">Post Update →</button>
-      <div id="up-status" class="post-status" role="status" hidden></div>
-    </form>
-  `;
-
-  const form = document.getElementById('post-update');
-  const status = document.getElementById('up-status');
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const title = document.getElementById('up-title').value;
-    const body = document.getElementById('up-body').value;
-    if (!title.trim() || !body.trim()) return;
-    const btn = form.querySelector('button');
-    btn.disabled = true;
-    btn.textContent = 'Posting…';
-    try {
-      const { pushed } = await broadcast({ title, body });
-      form.reset();
-      showStatus(
-        status,
-        pushed
-          ? 'Posted & notifications sent! 🎉'
-          : 'Posted to the feed! (Push not sent — check Worker setup.)',
-        true
-      );
-    } catch {
-      showStatus(status, 'Could not post — are you signed in as the board?', false);
-    } finally {
-      btn.disabled = false;
-      btn.textContent = 'Post Update →';
-    }
-  });
-});
-
-function showStatus(el, msg, ok) {
-  el.textContent = msg;
-  el.hidden = false;
-  el.className = `post-status ${ok ? 'ok' : 'err'}`;
-}
+// The board posts announcements from the Director Console (Teams page → sign in),
+// so the Updates page is read-only: it just shows the feed + the notify opt-in.
 
 function escapeHtml(s) {
   return String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
