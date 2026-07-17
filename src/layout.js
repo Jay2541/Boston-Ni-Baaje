@@ -36,10 +36,14 @@ export function renderHeader(activePage) {
         <img src="${BASE}logo.png" alt="" class="brand-logo" />
         <span class="brand-text">Boston Ni Baaje</span>
       </a>
+      <nav class="nav">${links}</nav>
+      <a href="${BASE}teams.html#team-portal" class="login-pill${activePage === 'teams.html' ? ' active' : ''}">
+        <span class="login-pill-icon" aria-hidden="true">⚿</span>
+        <span class="login-pill-text">Team Login</span>
+      </a>
       <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
-      <nav class="nav">${links}</nav>
     </div>
   `;
 

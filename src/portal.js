@@ -1,4 +1,4 @@
-import { renderHeader, renderFooter } from './layout.js';
+import { renderHeader, renderFooter, initReveal } from './layout.js';
 import { auth, db } from './firebase.js';
 import { resolveMember, TEAM_ACCOUNTS } from './data/members.js';
 import {
@@ -36,6 +36,9 @@ if (rosterEl) {
 }
 const countEl = document.getElementById('team-count');
 if (countEl) countEl.textContent = TEAM_ACCOUNTS.length;
+
+// Reveal the .reveal sections (roster + portal). Without this they stay hidden.
+initReveal();
 
 const loginView = document.getElementById('portal-login');
 const chatView = document.getElementById('portal-chat');
