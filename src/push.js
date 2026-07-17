@@ -20,40 +20,46 @@ export async function pushSupported() {
  * Returns { ok, reason }. Call this from a user gesture (button click).
  */
 export async function enablePush() {
-  if (!VAPID_PUBLIC_KEY || !PUSH_WORKER_URL) return { ok: false, reason: 'not-configured' };
-  if (!(await pushSupported())) return { ok: false, reason: 'unsupported' };
+  // Never throws — always resolves to { ok, reason } so callers can reset UI.
+  try {
+    if (!VAPID_PUBLIC_KEY || !PUSH_WORKER_URL) return { ok: false, reason: 'not-configured' };
+    if (!(await pushSupported())) return { ok: false, reason: 'unsupported' };
 
-  const permission = await Notification.requestPermission();
-  if (permission !== 'granted') return { ok: false, reason: 'denied' };
+    const permission = await Notification.requestPermission();
+    if (permission !== 'granted') return { ok: false, reason: 'denied' };
 
-  const messaging = getMessaging(app);
+    const messaging = getMessaging(app);
 
-  // The FCM SW must live at the site root scope. Vite serves it from public/.
-  const swReg = await navigator.serviceWorker.register(
-    `${BASE}firebase-messaging-sw.js`
-  );
+    // The FCM SW must live at the site root scope. Vite serves it from public/.
+    const swReg = await navigator.serviceWorker.register(
+      `${BASE}firebase-messaging-sw.js`
+    );
+    await navigator.serviceWorker.ready;
 
-  const token = await getToken(messaging, {
-    vapidKey: VAPID_PUBLIC_KEY,
-    serviceWorkerRegistration: swReg,
-  });
-  if (!token) return { ok: false, reason: 'no-token' };
+    const token = await getToken(messaging, {
+      vapidKey: VAPID_PUBLIC_KEY,
+      serviceWorkerRegistration: swReg,
+    });
+    if (!token) return { ok: false, reason: 'no-token' };
 
-  // Subscribe this device to the "all" topic via the Worker.
-  const res = await fetch(`${PUSH_WORKER_URL}/subscribe`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ token }),
-  });
-  if (!res.ok) return { ok: false, reason: 'subscribe-failed' };
+    // Subscribe this device to the "all" topic via the Worker.
+    const res = await fetch(`${PUSH_WORKER_URL}/subscribe`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ token }),
+    });
+    if (!res.ok) return { ok: false, reason: 'subscribe-failed' };
 
-  // Foreground messages: show a lightweight in-page toast.
-  onMessage(messaging, (payload) => {
-    const n = payload?.notification;
-    if (n) showToast(n.title, n.body);
-  });
+    // Foreground messages: show a lightweight in-page toast.
+    onMessage(messaging, (payload) => {
+      const n = payload?.notification;
+      if (n) showToast(n.title, n.body);
+    });
 
-  return { ok: true };
+    return { ok: true };
+  } catch (err) {
+    return { ok: false, reason: 'error', detail: String(err?.message || err) };
+  }
 }
 
 /** Current notification permission: 'default' | 'granted' | 'denied'. */

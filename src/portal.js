@@ -20,6 +20,23 @@ import {
 renderHeader('teams.html');
 renderFooter();
 
+/* ---------- Competing teams roster (always shown) ---------- */
+const rosterEl = document.getElementById('team-roster');
+if (rosterEl) {
+  rosterEl.innerHTML = TEAM_ACCOUNTS.map(
+    (t) => `
+      <div class="team-card">
+        <span class="team-crest" style="--crest:${t.color || 'var(--gold)'}">${t.initials || ''}</span>
+        <div class="team-meta">
+          <h4>${t.name}</h4>
+          <p>${t.school || ''}</p>
+        </div>
+      </div>`
+  ).join('');
+}
+const countEl = document.getElementById('team-count');
+if (countEl) countEl.textContent = TEAM_ACCOUNTS.length;
+
 const loginView = document.getElementById('portal-login');
 const chatView = document.getElementById('portal-chat');
 const loginForm = document.getElementById('portal-login-form');

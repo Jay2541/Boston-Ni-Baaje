@@ -54,6 +54,18 @@ export function renderHeader(activePage) {
     if (e.target.closest('.nav-link')) header.classList.remove('nav-open');
   });
 
+  // Only show the right-edge fade when the nav actually overflows horizontally
+  // (desktop wide enough to fit everything → no fade; narrower → scroll + fade).
+  const updateFade = () => {
+    const desktop = window.matchMedia('(min-width: 721px)').matches;
+    const overflowing = nav.scrollWidth > nav.clientWidth + 2;
+    const atEnd = nav.scrollLeft + nav.clientWidth >= nav.scrollWidth - 2;
+    nav.classList.toggle('no-fade', !desktop || !overflowing || atEnd);
+  };
+  updateFade();
+  nav.addEventListener('scroll', updateFade, { passive: true });
+  window.addEventListener('resize', updateFade, { passive: true });
+
   // Shadow / condensed header on scroll
   const onScroll = () => header.classList.toggle('scrolled', window.scrollY > 12);
   onScroll();

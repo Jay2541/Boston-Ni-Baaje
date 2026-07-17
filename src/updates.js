@@ -41,13 +41,19 @@ async function initNotifCta() {
     const btn = e.currentTarget;
     btn.disabled = true;
     btn.textContent = 'Enabling…';
-    const res = await enablePush();
-    if (res.ok) {
-      cta.innerHTML = `<p class="notif-ok">✅ You're all set — you'll get updates here and on your phone.</p>`;
+    let res;
+    try {
+      res = await enablePush();
+    } catch (err) {
+      res = { ok: false, reason: 'error' };
+    }
+    if (res && res.ok) {
+      btn.textContent = 'Done!';
+      cta.innerHTML = `<p class="notif-ok">✅ Done! You'll get updates here and on your phone.</p>`;
     } else {
       btn.disabled = false;
       btn.textContent = 'Turn On';
-      const msg = res.reason === 'denied'
+      const msg = res && res.reason === 'denied'
         ? 'Permission denied. You can re-enable it in your browser/app settings.'
         : 'Could not enable notifications on this device.';
       showTransient(cta, msg);

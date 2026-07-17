@@ -11,14 +11,14 @@ export const BOARD_EMAIL = 'board@bostonnibaaje.com';
 
 // Team accounts. `id` must be stable (used as the Firestore thread id).
 export const TEAM_ACCOUNTS = [
-  { id: 'northeastern', email: 'northeastern@bnb.team', name: 'Northeastern Nakhraas' },
-  { id: 'uconn', email: 'uconn@bnb.team', name: 'UConn ThundeRaas' },
-  { id: 'gatech', email: 'gatech@bnb.team', name: "GT Ramblin' Raas" },
-  { id: 'cmu', email: 'cmu@bnb.team', name: 'CMU Raasta' },
-  { id: 'utd', email: 'utd@bnb.team', name: 'UTD TaRaas' },
-  { id: 'texas', email: 'texas@bnb.team', name: 'Texas Raas' },
-  { id: 'uf', email: 'uf@bnb.team', name: 'UF GatoRaas' },
-  { id: 'ucf', email: 'ucf@bnb.team', name: 'UCF KnightRaas' },
+  { id: 'northeastern', email: 'northeastern@bnb.team', name: 'Northeastern Nakhraas', school: 'Northeastern University', initials: 'NU', color: '#c8102e' },
+  { id: 'uconn', email: 'uconn@bnb.team', name: 'UConn ThundeRaas', school: 'University of Connecticut', initials: 'UC', color: '#0e1a3c' },
+  { id: 'gatech', email: 'gatech@bnb.team', name: "GT Ramblin' Raas", school: 'Georgia Tech', initials: 'GT', color: '#b3a369' },
+  { id: 'cmu', email: 'cmu@bnb.team', name: 'CMU Raasta', school: 'Carnegie Mellon University', initials: 'CMU', color: '#c41230' },
+  { id: 'utd', email: 'utd@bnb.team', name: 'UTD TaRaas', school: 'UT Dallas', initials: 'UTD', color: '#e87500' },
+  { id: 'texas', email: 'texas@bnb.team', name: 'Texas Raas', school: 'UT Austin', initials: 'UT', color: '#bf5700' },
+  { id: 'uf', email: 'uf@bnb.team', name: 'UF GatoRaas', school: 'University of Florida', initials: 'UF', color: '#0021a5' },
+  { id: 'ucf', email: 'ucf@bnb.team', name: 'UCF KnightRaas', school: 'University of Central Florida', initials: 'UCF', color: '#ba9b37' },
 ];
 
 const BY_EMAIL = new Map(TEAM_ACCOUNTS.map((t) => [t.email.toLowerCase(), t]));
