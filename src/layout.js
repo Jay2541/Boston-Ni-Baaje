@@ -16,7 +16,13 @@ const NAV_LINKS = [
   { href: 'teams.html', label: 'Teams' },
   { href: 'discover.html', label: 'Discover' },
   { href: 'sponsors.html', label: 'Sponsors' },
+  { href: 'board.html', label: 'Board' },
 ];
+
+const SOCIAL_ICONS = {
+  instagram: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>`,
+  linkedin: `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 1 1 0-4.124 2.062 2.062 0 0 1 0 4.124zM7.114 20.452H3.558V9h3.556v11.452z"/></svg>`,
+};
 
 export function renderHeader(activePage) {
   const header = document.getElementById('site-header');
@@ -32,8 +38,7 @@ export function renderHeader(activePage) {
   header.innerHTML = `
     <div class="header-inner">
       <a href="${BASE}index.html" class="brand">
-        <img src="${BASE}logo.png" alt="" class="brand-logo" />
-        <span class="brand-text">Boston Ni Baaje</span>
+        <img src="${BASE}logo.png" alt="Boston Ni Baaje" class="brand-logo" />
       </a>
       <nav class="nav">${links}</nav>
       <a href="${BASE}teams.html#team-portal" class="login-pill${activePage === 'teams.html' ? ' active' : ''}">
@@ -82,6 +87,16 @@ export function renderFooter() {
   const year = new Date().getFullYear();
 
   footer.innerHTML = `
+    <div class="footer-contact">
+      <h2>Contact Us</h2>
+      <p>Please feel free to reach out if you have any questions, concerns, or feedback.</p>
+      <a class="footer-email" href="mailto:${EVENT.contact.info}">${EVENT.contact.info}</a>
+      <p class="footer-follow-label">Follow us on</p>
+      <div class="social-row">
+        <a class="social-btn" href="${EVENT.social.instagram}" target="_blank" rel="noopener" aria-label="Instagram">${SOCIAL_ICONS.instagram}</a>
+        <a class="social-btn" href="${EVENT.social.linkedin}" target="_blank" rel="noopener" aria-label="LinkedIn">${SOCIAL_ICONS.linkedin}</a>
+      </div>
+    </div>
     <div class="footer-inner">
       <div class="footer-brand">
         <img src="${BASE}logo.png" alt="" class="brand-logo" />
@@ -92,9 +107,7 @@ export function renderFooter() {
       </div>
       <div class="footer-links">
         <a href="${BASE}app.html">Get the App</a>
-        <a href="mailto:${EVENT.contact.info}">${EVENT.contact.info}</a>
         <a href="${mapsUrl(EVENT.venue.mapsQuery)}" target="_blank" rel="noopener">${EVENT.venue.name}</a>
-        <a href="${EVENT.social.instagram}" target="_blank" rel="noopener">Instagram</a>
       </div>
     </div>
     <div class="footer-copy">&copy; ${year} ${EVENT.name}. All rights reserved.</div>

@@ -60,7 +60,7 @@ Live at: `https://<github-username>.github.io/Boston-Ni-Baaje/`
 
 - Wire up push notifications — see [App & notifications](#app--notifications) (the Firebase step)
 - Replace sponsor logo placeholders in `sponsors.html`
-- Confirm event details in `src/data/event.js` (Feb 19–20, 2027 at the Huntington Theatre; `startISO` drives the countdown — update the year if the date shifts)
+- Confirm event details in `src/data/event.js` (Feb 26–27, 2027 at the Huntington Theatre; `startISO` drives the countdown — update the year if the date shifts)
 - Fill in real schedule data in `src/data/schedule.json`
 - Update the homepage stat numbers in `index.html` (`data-target` values)
 

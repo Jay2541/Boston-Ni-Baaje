@@ -6,9 +6,9 @@ export const EVENT = {
   tagline: "Boston's newest collegiate Raas competition.",
   // Event start (used for the countdown). Update to the real date/time.
   // Format: ISO 8601 with timezone offset. Boston is UTC-05:00 in winter (Feb), -04:00 in summer.
-  startISO: '2027-02-19T18:00:00-05:00',
-  dateLabel: 'February 19–20, 2027',
-  dateShort: 'Feb 19–20, 2027',
+  startISO: '2027-02-26T18:00:00-05:00',
+  dateLabel: 'February 26–27, 2027',
+  dateShort: 'Feb 26–27, 2027',
   venue: {
     name: 'Huntington Theatre',
     org: 'Boston, MA',
@@ -21,9 +21,13 @@ export const EVENT = {
   contact: {
     info: 'info@bostonnibaaje.com',
     sponsorship: 'sponsorship@bostonnibaaje.com',
+    director: 'director@bostonnibaaje.com',
+    registration: 'registration@bostonnibaaje.com',
+    hospitality: 'hospitality@bostonnibaaje.com',
   },
   social: {
     instagram: 'https://instagram.com/bostonnibaaje',
+    linkedin: 'https://www.linkedin.com/in/boston-ni-baaje-780126422/',
   },
 };
 
