@@ -2,6 +2,8 @@ import { renderHeader, renderFooter, initReveal } from './layout.js';
 import { EVENT, mapsUrl } from './data/event.js';
 import schedule from './data/schedule.json';
 
+const BASE = import.meta.env.BASE_URL;
+
 renderHeader('schedule.html');
 renderFooter();
 
@@ -61,10 +63,13 @@ const aboutVenueEl = document.getElementById('venue-about');
 if (aboutVenueEl) {
   aboutVenueEl.innerHTML = `
     <div class="venue-feature reveal">
-      <span class="venue-eyebrow">⚾ This year's theme &mdash; ${EVENT.theme}</span>
-      <h3>About the ${EVENT.venue.name}</h3>
-      <p>${EVENT.venue.about}</p>
-      <a class="btn btn-outline" href="${mapsUrl(EVENT.venue.mapsQuery)}" target="_blank" rel="noopener">Get Directions &rarr;</a>
+      <img class="venue-photo" src="${BASE}${EVENT.venue.photo}" alt="${EVENT.venue.name}" />
+      <div class="venue-feature-text">
+        <span class="venue-eyebrow">⚾ This year's theme &mdash; ${EVENT.theme}</span>
+        <h3>About the ${EVENT.venue.name}</h3>
+        <p>${EVENT.venue.about}</p>
+        <a class="btn btn-outline" href="${mapsUrl(EVENT.venue.mapsQuery)}" target="_blank" rel="noopener">Get Directions &rarr;</a>
+      </div>
     </div>
   `;
 }
