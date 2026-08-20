@@ -98,7 +98,7 @@ function initParticles() {
   if (!layer || prefersReducedMotion()) return;
 
   const COUNT = 14;
-  const colors = ['#f0c14b', '#bd3039', '#0c8a5f', '#e63946'];
+  const colors = ['#8f2d32', '#2a4a6b', '#3f2d54', '#a5383e'];
   for (let i = 0; i < COUNT; i++) {
     const p = document.createElement('span');
     p.className = 'particle';
