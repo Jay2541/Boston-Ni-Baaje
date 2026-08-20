@@ -17,6 +17,7 @@ const NAV_LINKS = [
   { href: 'discover.html', label: 'Discover' },
   { href: 'sponsors.html', label: 'Sponsors' },
   { href: 'board.html', label: 'Board' },
+  { href: 'resources.html', label: 'Resources' },
 ];
 
 const SOCIAL_ICONS = {

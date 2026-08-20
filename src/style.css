@@ -703,7 +703,7 @@ section > p a, .lead a { color: var(--gold); text-decoration: underline; }
   color: var(--gold);
   margin: 0.4rem 0 0.2rem;
 }
-.sponsor-letter .hero-cta { margin-top: 2.25rem; }
+.sponsor-letter .hero-cta { margin-bottom: 2.25rem; }
 
 /* ---------- Discover Boston ---------- */
 .discover-group { margin-bottom: clamp(2.5rem, 6vw, 4rem); }
@@ -860,6 +860,44 @@ section > p a, .lead a { color: var(--gold); text-decoration: underline; }
   font-size: 0.9rem;
   margin-top: 0.75rem;
   text-decoration: underline;
+}
+
+/* ---------- Resources ---------- */
+.resource-block {
+  max-width: 720px;
+  margin: 0 auto 3.5rem;
+  text-align: center;
+}
+.resource-block:last-child { margin-bottom: 0; }
+.resource-block h3 {
+  color: var(--ink);
+  font-size: clamp(1.3rem, 3.5vw, 1.6rem);
+  font-weight: 700;
+  margin-bottom: 1.25rem;
+}
+.resource-block p {
+  color: var(--text-dim);
+  line-height: 1.8;
+  margin: 0 0 1.25rem;
+  text-align: center;
+}
+.resource-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 700;
+  color: var(--red);
+  padding: 0.75rem 1.75rem;
+  border: 1.5px solid rgba(143, 45, 50, 0.35);
+  border-radius: 999px;
+  background: rgba(143, 45, 50, 0.06);
+  margin-top: 0.5rem;
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+.resource-link:hover {
+  background: rgba(143, 45, 50, 0.14);
+  border-color: var(--red);
+  transform: translateY(-2px);
 }
 
 /* ---------- Team portal / sign-in ---------- */

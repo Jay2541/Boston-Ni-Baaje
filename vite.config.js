@@ -14,6 +14,7 @@ export default defineConfig({
         sponsors: resolve(__dirname, 'sponsors.html'),
         app: resolve(__dirname, 'app.html'),
         board: resolve(__dirname, 'board.html'),
+        resources: resolve(__dirname, 'resources.html'),
       },
     },
   },
