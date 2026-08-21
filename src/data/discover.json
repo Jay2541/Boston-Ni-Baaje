@@ -1,56 +1,285 @@
-[
-  {
-    "category": "Right by the Venue",
-    "eyebrow": "⚾ In the Fenway",
-    "blurb": "Steps from the Huntington Theatre.",
-    "places": [
-      { "name": "Fenway Park", "tag": "Icon", "desc": "America's oldest ballpark.", "url": "https://www.mlb.com/redsox/ballpark/tours" },
-      { "name": "Museum of Fine Arts", "tag": "Art", "desc": "A world-class art museum.", "url": "https://www.mfa.org/" },
-      { "name": "Isabella Stewart Gardner Museum", "tag": "Art", "desc": "A Venetian-style palazzo museum.", "url": "https://www.gardnermuseum.org/" },
-      { "name": "The Landmark at Fenway", "tag": "Nearby", "desc": "Shops, dining, and a cinema.", "url": "https://www.fenwaylandmark.com/" }
-    ]
+{
+  "venue": {
+    "name": "Huntington Theatre",
+    "position": "Home Plate",
+    "coords": [42.3418, -71.0857],
+    "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/Huntington_Theatre_Company_Huntington_Avenue_Theatre.jpg/500px-Huntington_Theatre_Company_Huntington_Avenue_Theatre.jpg",
+    "desc": "The mainstage. Everything below is measured from this corner of the Fenway."
   },
-  {
-    "category": "Eat Well",
-    "eyebrow": "🍽️ The good stuff",
-    "blurb": "Local favorites, not chains.",
-    "places": [
-      { "name": "Sweet Cheeks Q", "tag": "BBQ", "desc": "Fenway smokehouse BBQ.", "url": "https://www.sweetcheeksq.com/" },
-      { "name": "Neptune Oyster", "tag": "Seafood", "desc": "Legendary North End lobster roll.", "url": "https://neptuneoyster.com/" },
-      { "name": "Giulia", "tag": "Italian", "desc": "Cambridge handmade-pasta favorite.", "url": "https://www.giuliarestaurant.com/" },
-      { "name": "Mike & Patty's", "tag": "Brunch", "desc": "Cult-favorite breakfast sandwiches.", "url": "https://www.mikeandpattys.com/" }
-    ]
-  },
-  {
-    "category": "Nightlife",
-    "eyebrow": "🍸 After hours",
-    "blurb": "Keep the weekend going.",
-    "places": [
-      { "name": "Bleacher Bar", "tag": "Bar", "desc": "Inside Fenway's wall, field views.", "url": "https://www.mlb.com/redsox/ballpark/bleacher-bar" },
-      { "name": "Lookout Rooftop", "tag": "Rooftop", "desc": "Seaport rooftop, skyline views.", "url": "https://www.lookoutrooftop.com/" },
-      { "name": "The Grand", "tag": "Club", "desc": "Boston's biggest nightclub.", "url": "https://www.grandboston.com/" },
-      { "name": "Drink", "tag": "Cocktails", "desc": "No menu — bespoke cocktails.", "url": "https://drinkfortpoint.com/" }
-    ]
-  },
-  {
-    "category": "See the City",
-    "eyebrow": "🗽 Explore",
-    "blurb": "Classic Boston, a quick T ride away.",
-    "places": [
-      { "name": "Freedom Trail", "tag": "History", "desc": "2.5 miles of Revolutionary history.", "url": "https://www.thefreedomtrail.org/" },
-      { "name": "Boston Common & Public Garden", "tag": "Outdoors", "desc": "The country's oldest public park.", "url": "https://www.boston.gov/parks/boston-common" },
-      { "name": "Newbury Street", "tag": "Shopping", "desc": "Shops and cafés on brownstone blocks.", "url": "https://www.newbury-st.com/" },
-      { "name": "Harvard Square", "tag": "Day trip", "desc": "Cambridge charm across the river.", "url": "https://www.harvardsquare.com/" }
-    ]
-  },
-  {
-    "category": "Getting Around",
-    "eyebrow": "🚇 The T",
-    "blurb": "Walkable city; the T covers the rest.",
-    "places": [
-      { "name": "MBTA — Subway & Bus", "tag": "Transit", "desc": "Green Line stops at Symphony / MFA.", "url": "https://www.mbta.com/" },
-      { "name": "Blue Bikes", "tag": "Bikes", "desc": "City-wide bike share.", "url": "https://bluebikes.com/" },
-      { "name": "Logan Airport (BOS)", "tag": "Fly in", "desc": "~20 min from the Fenway.", "url": "https://www.massport.com/logan-airport" }
-    ]
-  }
-]
+  "groups": [
+    {
+      "key": "home-team",
+      "category": "The Home Team",
+      "eyebrow": "⚾ Right by the venue",
+      "blurb": "Icons of the Fenway — all within an easy walk of home plate.",
+      "color": "#8f2d32",
+      "places": [
+        {
+          "id": "fenway-park",
+          "name": "Fenway Park",
+          "position": "Icon · Est. 1912",
+          "tag": "Ballpark",
+          "coords": [42.3467, -71.0972],
+          "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Fenway_Park.jpg/500px-Fenway_Park.jpg",
+          "emoji": "⚾",
+          "desc": "America's oldest ballpark and the beating heart of the neighborhood. Tour the Green Monster and stand where legends played.",
+          "dist": "0.9 mi",
+          "walk": "18 min walk",
+          "transit": "Green Line · 7 min",
+          "rating": 5,
+          "url": "https://www.mlb.com/redsox/ballpark/tours"
+        },
+        {
+          "id": "symphony-hall",
+          "name": "Symphony Hall",
+          "position": "Landmark · Est. 1900",
+          "tag": "Concert Hall",
+          "coords": [42.3426, -71.0857],
+          "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Symphony_Hall_front_view.jpg/500px-Symphony_Hall_front_view.jpg",
+          "emoji": "🎻",
+          "desc": "Home of the Boston Symphony and one of the finest-sounding rooms on earth — literally across the street from the venue.",
+          "dist": "0.1 mi",
+          "walk": "2 min walk",
+          "transit": "Right next door",
+          "rating": 5,
+          "url": "https://www.bso.org/venues/symphony-hall"
+        },
+        {
+          "id": "mfa",
+          "name": "Museum of Fine Arts",
+          "position": "All-Star · Art",
+          "tag": "Museum",
+          "coords": [42.3394, -71.0940],
+          "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/Museum_of_Fine_Arts%2C_Boston_%2854954248311%29.jpg/500px-Museum_of_Fine_Arts%2C_Boston_%2854954248311%29.jpg",
+          "emoji": "🖼️",
+          "desc": "One of the largest art museums in the country — nearly half a million works, from ancient Egypt to right now.",
+          "dist": "0.5 mi",
+          "walk": "10 min walk",
+          "transit": "Green Line E · 4 min",
+          "rating": 5,
+          "url": "https://www.mfa.org/"
+        },
+        {
+          "id": "gardner",
+          "name": "Isabella Stewart Gardner Museum",
+          "position": "Utility · Art",
+          "tag": "Museum",
+          "coords": [42.3381, -71.0990],
+          "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/IsabellaStewartGardenerMuseumMainLobby.jpg/500px-IsabellaStewartGardenerMuseumMainLobby.jpg",
+          "emoji": "🏛️",
+          "desc": "A Venetian-style palazzo built around a blooming courtyard — home to the world's most famous unsolved art heist.",
+          "dist": "0.7 mi",
+          "walk": "13 min walk",
+          "transit": "Green Line E · 6 min",
+          "rating": 5,
+          "url": "https://www.gardnermuseum.org/"
+        }
+      ]
+    },
+    {
+      "key": "grand-slams",
+      "category": "Grand Slams",
+      "eyebrow": "🍽️ Eat well",
+      "blurb": "Fenway's best plates — local favorites, no chains.",
+      "color": "#2a4a6b",
+      "places": [
+        {
+          "id": "time-out-market",
+          "name": "Time Out Market Boston",
+          "position": "Cleanup Hitter · Food Hall",
+          "tag": "Food Hall",
+          "coords": [42.3436, -71.0997],
+          "emoji": "🍽️",
+          "desc": "The city's best chefs under one roof — 15+ kitchens, two bars, one giant hall. Impossible to lose here.",
+          "dist": "0.9 mi",
+          "walk": "18 min walk",
+          "transit": "Green Line · 8 min",
+          "rating": 5,
+          "url": "https://www.timeoutmarket.com/boston/"
+        },
+        {
+          "id": "sweet-cheeks",
+          "name": "Sweet Cheeks Q",
+          "position": "Power Hitter · BBQ",
+          "tag": "BBQ",
+          "coords": [42.3446, -71.0995],
+          "emoji": "🍖",
+          "desc": "Tiffani Faison's Fenway smokehouse. Trays of brisket and ribs, and the honey-butter biscuits are the real MVP.",
+          "dist": "0.9 mi",
+          "walk": "18 min walk",
+          "transit": "Green Line · 8 min",
+          "rating": 5,
+          "url": "https://www.sweetcheeksq.com/"
+        },
+        {
+          "id": "eventide-fenway",
+          "name": "Eventide Fenway",
+          "position": "Contact Hitter · Seafood",
+          "tag": "Seafood",
+          "coords": [42.3444, -71.0999],
+          "emoji": "🦞",
+          "desc": "The lobster roll that launched a thousand imitators, plus a raw bar and brown-butter buns. Order at the counter.",
+          "dist": "0.9 mi",
+          "walk": "18 min walk",
+          "transit": "Green Line · 8 min",
+          "rating": 5,
+          "url": "https://www.eventideoysterco.com/eventide-fenway"
+        },
+        {
+          "id": "tatte-fenway",
+          "name": "Tatte Bakery & Café",
+          "position": "Leadoff · Brunch",
+          "tag": "Café",
+          "coords": [42.3449, -71.0994],
+          "emoji": "🥐",
+          "desc": "Shakshuka, flaky pastries, and proper coffee. The Boston brunch institution to start a game day right.",
+          "dist": "0.9 mi",
+          "walk": "18 min walk",
+          "transit": "Green Line · 8 min",
+          "rating": 4,
+          "url": "https://tattebakery.com/"
+        }
+      ]
+    },
+    {
+      "key": "extra-innings",
+      "category": "Extra Innings",
+      "eyebrow": "🍸 After hours",
+      "blurb": "Keep the weekend going once the lights come up.",
+      "color": "#3f2d54",
+      "places": [
+        {
+          "id": "bleacher-bar",
+          "name": "Bleacher Bar",
+          "position": "Closer · Bar",
+          "tag": "Bar",
+          "coords": [42.3455, -71.0975],
+          "emoji": "🍺",
+          "desc": "Tucked under the bleachers with a garage-door window looking straight onto Fenway's center field. The most Boston pint you'll pull.",
+          "dist": "1.0 mi",
+          "walk": "20 min walk",
+          "transit": "Green Line · 8 min",
+          "rating": 5,
+          "url": "https://www.mlb.com/redsox/ballpark/bleacher-bar"
+        },
+        {
+          "id": "cask-n-flagon",
+          "name": "Cask 'n Flagon",
+          "position": "Veteran · Sports Bar",
+          "tag": "Sports Bar",
+          "coords": [42.3466, -71.0983],
+          "emoji": "🍻",
+          "desc": "The legendary bar in the shadow of the Green Monster — game-day HQ since 1969. Loud, packed, and exactly right.",
+          "dist": "1.0 mi",
+          "walk": "20 min walk",
+          "transit": "Green Line · 8 min",
+          "rating": 4,
+          "url": "https://www.casknflagon.com/"
+        },
+        {
+          "id": "lorettas",
+          "name": "Loretta's Last Call",
+          "position": "Utility · Live Music",
+          "tag": "Live Music",
+          "coords": [42.3452, -71.0989],
+          "emoji": "🎸",
+          "desc": "Boots, buckets of beer, and live country in the middle of the Fenway. A rowdy, easy night out.",
+          "dist": "0.9 mi",
+          "walk": "18 min walk",
+          "transit": "Green Line · 8 min",
+          "rating": 4,
+          "url": "https://lorettaslastcall.com/"
+        }
+      ]
+    },
+    {
+      "key": "on-the-road",
+      "category": "On the Road",
+      "eyebrow": "🗺️ A quick T ride away",
+      "blurb": "Classic Boston, a short Green Line hop from the venue.",
+      "color": "#2f5d50",
+      "places": [
+        {
+          "id": "newbury-street",
+          "name": "Newbury Street",
+          "position": "All-Star · Shopping",
+          "tag": "Shopping",
+          "coords": [42.3505, -71.0810],
+          "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Newbury_Street_Boston_May_2018.jpg/500px-Newbury_Street_Boston_May_2018.jpg",
+          "emoji": "🛍️",
+          "desc": "Eight brownstone blocks of shops, cafés, and galleries — Boston's best-looking street to wander.",
+          "dist": "1.0 mi",
+          "walk": "16 min walk",
+          "transit": "Green Line · 9 min",
+          "rating": 4,
+          "url": "https://www.newbury-st.com/"
+        },
+        {
+          "id": "copley-square",
+          "name": "Copley Square",
+          "position": "Landmark · Back Bay",
+          "tag": "Landmark",
+          "coords": [42.3499, -71.0774],
+          "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/USA-Boston-Copley_Square0.JPG/500px-USA-Boston-Copley_Square0.JPG",
+          "emoji": "⛪",
+          "desc": "Trinity Church, the Boston Public Library, and the finish line of the Boston Marathon, all around one grand plaza.",
+          "dist": "1.2 mi",
+          "walk": "20 min walk",
+          "transit": "Green Line · 10 min",
+          "rating": 4,
+          "url": "https://www.boston.gov/"
+        },
+        {
+          "id": "boston-common",
+          "name": "Boston Common & Public Garden",
+          "position": "Icon · Outdoors",
+          "tag": "Park",
+          "coords": [42.3541, -71.0655],
+          "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Aerial_View_Parkman_Bandstand_at_Boston_Common_2.jpg/500px-Aerial_View_Parkman_Bandstand_at_Boston_Common_2.jpg",
+          "emoji": "🌳",
+          "desc": "The oldest public park in the country, and the swan-boat lagoon next door. Green space, statues, and space to breathe.",
+          "dist": "1.8 mi",
+          "walk": "T ride",
+          "transit": "Green Line · 14 min",
+          "rating": 5,
+          "url": "https://www.boston.gov/parks/boston-common"
+        },
+        {
+          "id": "freedom-trail",
+          "name": "The Freedom Trail",
+          "position": "MVP · History",
+          "tag": "History",
+          "coords": [42.3564, -71.0632],
+          "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/USA-The_Freedom_Trail.JPG/500px-USA-The_Freedom_Trail.JPG",
+          "emoji": "🇺🇸",
+          "desc": "A 2.5-mile red-brick line through 16 sites of Revolutionary history — Boston's original walk-off.",
+          "dist": "1.9 mi",
+          "walk": "T ride",
+          "transit": "Green Line · 15 min",
+          "rating": 5,
+          "url": "https://www.thefreedomtrail.org/"
+        },
+        {
+          "id": "harvard-square",
+          "name": "Harvard Square",
+          "position": "Road Trip · Cambridge",
+          "tag": "Day Trip",
+          "coords": [42.3736, -71.1190],
+          "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Harvard_Square_in_Cambridge%2C_Massachusetts.jpg/500px-Harvard_Square_in_Cambridge%2C_Massachusetts.jpg",
+          "emoji": "🎓",
+          "desc": "Bookstores, buskers, and centuries of collegiate charm across the river — an easy afternoon in Cambridge.",
+          "dist": "3.5 mi",
+          "walk": "T ride",
+          "transit": "Red Line · 25 min",
+          "rating": 4,
+          "url": "https://www.harvardsquare.com/"
+        }
+      ]
+    }
+  ],
+  "transit": [
+    { "name": "MBTA — The T", "tag": "🚇 Subway & Bus", "desc": "The Green Line E stops at Symphony & MFA, right by the venue.", "url": "https://www.mbta.com/" },
+    { "name": "Blue Bikes", "tag": "🚲 Bike share", "desc": "Docks all over the Fenway — grab one and ride the Emerald Necklace.", "url": "https://bluebikes.com/" },
+    { "name": "Logan Airport (BOS)", "tag": "✈️ Fly in", "desc": "About 20 minutes from the Fenway by car or the Silver + Green Line.", "url": "https://www.massport.com/logan-airport" }
+  ]
+}

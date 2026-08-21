@@ -18,6 +18,17 @@
       href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Playfair+Display:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin=""
+    />
+    <script
+      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+      crossorigin=""
+    ></script>
     <link rel="stylesheet" href="/src/style.css" />
   </head>
   <body>
@@ -26,11 +37,27 @@
     <main>
       <section id="discover">
         <div class="section-head reveal">
-          <span class="eyebrow">While You're Here</span>
+          <span class="eyebrow">While You're Here ⚾</span>
           <h2>Discover Boston</h2>
-          <p>In town for the weekend? Make the most of it — here's the good stuff, from the Fenway out.</p>
+          <p>In town for the weekend? Here's your lineup — the best of the Fenway and beyond, all measured from home plate.</p>
         </div>
+
+        <div class="discover-map-wrap reveal">
+          <div class="discover-map-scoreboard">
+            <span class="scoreboard-dot"></span>
+            <span class="scoreboard-label">Live map</span>
+            <span class="scoreboard-sub">Tap a base to scout it — hover a card to flip it</span>
+          </div>
+          <div id="discover-map" role="region" aria-label="Map of things to do near the venue"></div>
+          <div id="discover-legend" class="discover-legend"></div>
+        </div>
+
         <div id="discover-content"></div>
+
+        <div class="discover-transit">
+          <h3 class="discover-transit-title">🧢 Getting to the Ballpark</h3>
+          <div id="discover-transit-grid" class="discover-transit-grid"></div>
+        </div>
       </section>
     </main>
 
