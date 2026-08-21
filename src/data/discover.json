@@ -4,7 +4,7 @@
     "position": "Home Plate",
     "coords": [42.3418, -71.0857],
     "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/Huntington_Theatre_Company_Huntington_Avenue_Theatre.jpg/500px-Huntington_Theatre_Company_Huntington_Avenue_Theatre.jpg",
-    "desc": "The mainstage. Everything below is measured from this corner of the Fenway."
+    "desc": "The mainstage — home plate for the weekend. Everything below is measured from this corner of the Fenway."
   },
   "groups": [
     {
@@ -26,7 +26,8 @@
           "dist": "0.9 mi",
           "walk": "18 min walk",
           "transit": "Green Line · 7 min",
-          "rating": 5,
+          "bases": 2,
+          "hit": "Double",
           "url": "https://www.mlb.com/redsox/ballpark/tours"
         },
         {
@@ -41,7 +42,8 @@
           "dist": "0.1 mi",
           "walk": "2 min walk",
           "transit": "Right next door",
-          "rating": 5,
+          "bases": 1,
+          "hit": "Single",
           "url": "https://www.bso.org/venues/symphony-hall"
         },
         {
@@ -56,7 +58,8 @@
           "dist": "0.5 mi",
           "walk": "10 min walk",
           "transit": "Green Line E · 4 min",
-          "rating": 5,
+          "bases": 1,
+          "hit": "Single",
           "url": "https://www.mfa.org/"
         },
         {
@@ -71,7 +74,8 @@
           "dist": "0.7 mi",
           "walk": "13 min walk",
           "transit": "Green Line E · 6 min",
-          "rating": 5,
+          "bases": 2,
+          "hit": "Double",
           "url": "https://www.gardnermuseum.org/"
         }
       ]
@@ -89,12 +93,14 @@
           "position": "Cleanup Hitter · Food Hall",
           "tag": "Food Hall",
           "coords": [42.3436, -71.0997],
+          "photo": "img/time-out-market.jpg",
           "emoji": "🍽️",
           "desc": "The city's best chefs under one roof — 15+ kitchens, two bars, one giant hall. Impossible to lose here.",
           "dist": "0.9 mi",
           "walk": "18 min walk",
           "transit": "Green Line · 8 min",
-          "rating": 5,
+          "bases": 2,
+          "hit": "Double",
           "url": "https://www.timeoutmarket.com/boston/"
         },
         {
@@ -103,27 +109,31 @@
           "position": "Power Hitter · BBQ",
           "tag": "BBQ",
           "coords": [42.3446, -71.0995],
+          "photo": "img/sweet-cheeks.jpg",
           "emoji": "🍖",
           "desc": "Tiffani Faison's Fenway smokehouse. Trays of brisket and ribs, and the honey-butter biscuits are the real MVP.",
           "dist": "0.9 mi",
           "walk": "18 min walk",
           "transit": "Green Line · 8 min",
-          "rating": 5,
+          "bases": 2,
+          "hit": "Double",
           "url": "https://www.sweetcheeksq.com/"
         },
         {
-          "id": "eventide-fenway",
-          "name": "Eventide Fenway",
+          "id": "saltie-girl",
+          "name": "Saltie Girl",
           "position": "Contact Hitter · Seafood",
           "tag": "Seafood",
-          "coords": [42.3444, -71.0999],
+          "coords": [42.3495, -71.0757],
+          "photo": "img/saltie-girl.jpg",
           "emoji": "🦞",
-          "desc": "The lobster roll that launched a thousand imitators, plus a raw bar and brown-butter buns. Order at the counter.",
-          "dist": "0.9 mi",
+          "desc": "Back Bay's cult seafood bar — torched lobster rolls, towers of shellfish, and tinned-fish boards. Worth the short hop.",
+          "dist": "1.0 mi",
           "walk": "18 min walk",
-          "transit": "Green Line · 8 min",
-          "rating": 5,
-          "url": "https://www.eventideoysterco.com/eventide-fenway"
+          "transit": "Green Line · 9 min",
+          "bases": 2,
+          "hit": "Double",
+          "url": "https://www.saltiegirl.com/"
         },
         {
           "id": "tatte-fenway",
@@ -131,12 +141,14 @@
           "position": "Leadoff · Brunch",
           "tag": "Café",
           "coords": [42.3449, -71.0994],
+          "photo": "img/tatte-fenway.jpg",
           "emoji": "🥐",
           "desc": "Shakshuka, flaky pastries, and proper coffee. The Boston brunch institution to start a game day right.",
           "dist": "0.9 mi",
           "walk": "18 min walk",
           "transit": "Green Line · 8 min",
-          "rating": 4,
+          "bases": 2,
+          "hit": "Double",
           "url": "https://tattebakery.com/"
         }
       ]
@@ -154,13 +166,15 @@
           "position": "Closer · Bar",
           "tag": "Bar",
           "coords": [42.3455, -71.0975],
+          "photo": "img/bleacher-bar.jpg",
           "emoji": "🍺",
           "desc": "Tucked under the bleachers with a garage-door window looking straight onto Fenway's center field. The most Boston pint you'll pull.",
           "dist": "1.0 mi",
           "walk": "20 min walk",
           "transit": "Green Line · 8 min",
-          "rating": 5,
-          "url": "https://www.mlb.com/redsox/ballpark/bleacher-bar"
+          "bases": 2,
+          "hit": "Double",
+          "url": "https://www.bleacherbarboston.com/"
         },
         {
           "id": "cask-n-flagon",
@@ -168,26 +182,46 @@
           "position": "Veteran · Sports Bar",
           "tag": "Sports Bar",
           "coords": [42.3466, -71.0983],
+          "photo": "img/cask-n-flagon.jpg",
           "emoji": "🍻",
           "desc": "The legendary bar in the shadow of the Green Monster — game-day HQ since 1969. Loud, packed, and exactly right.",
           "dist": "1.0 mi",
           "walk": "20 min walk",
           "transit": "Green Line · 8 min",
-          "rating": 4,
+          "bases": 2,
+          "hit": "Double",
           "url": "https://www.casknflagon.com/"
+        },
+        {
+          "id": "house-of-blues",
+          "name": "House of Blues",
+          "position": "Headliner · Live Music",
+          "tag": "Music Venue",
+          "coords": [42.3466, -71.0955],
+          "photo": "img/house-of-blues.jpg",
+          "emoji": "🎤",
+          "desc": "The big room on Lansdowne Street, right behind the Green Monster — touring acts and late shows steps from the park.",
+          "dist": "0.9 mi",
+          "walk": "18 min walk",
+          "transit": "Green Line · 8 min",
+          "bases": 2,
+          "hit": "Double",
+          "url": "https://boston.houseofblues.com/"
         },
         {
           "id": "lorettas",
           "name": "Loretta's Last Call",
-          "position": "Utility · Live Music",
+          "position": "Utility · Country Bar",
           "tag": "Live Music",
           "coords": [42.3452, -71.0989],
+          "photo": "img/lorettas.jpg",
           "emoji": "🎸",
           "desc": "Boots, buckets of beer, and live country in the middle of the Fenway. A rowdy, easy night out.",
           "dist": "0.9 mi",
           "walk": "18 min walk",
           "transit": "Green Line · 8 min",
-          "rating": 4,
+          "bases": 2,
+          "hit": "Double",
           "url": "https://lorettaslastcall.com/"
         }
       ]
@@ -211,23 +245,9 @@
           "dist": "1.0 mi",
           "walk": "16 min walk",
           "transit": "Green Line · 9 min",
-          "rating": 4,
-          "url": "https://www.newbury-st.com/"
-        },
-        {
-          "id": "copley-square",
-          "name": "Copley Square",
-          "position": "Landmark · Back Bay",
-          "tag": "Landmark",
-          "coords": [42.3499, -71.0774],
-          "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/USA-Boston-Copley_Square0.JPG/500px-USA-Boston-Copley_Square0.JPG",
-          "emoji": "⛪",
-          "desc": "Trinity Church, the Boston Public Library, and the finish line of the Boston Marathon, all around one grand plaza.",
-          "dist": "1.2 mi",
-          "walk": "20 min walk",
-          "transit": "Green Line · 10 min",
-          "rating": 4,
-          "url": "https://www.boston.gov/"
+          "bases": 2,
+          "hit": "Double",
+          "url": "https://en.wikipedia.org/wiki/Newbury_Street"
         },
         {
           "id": "boston-common",
@@ -241,7 +261,8 @@
           "dist": "1.8 mi",
           "walk": "T ride",
           "transit": "Green Line · 14 min",
-          "rating": 5,
+          "bases": 3,
+          "hit": "Triple",
           "url": "https://www.boston.gov/parks/boston-common"
         },
         {
@@ -256,7 +277,8 @@
           "dist": "1.9 mi",
           "walk": "T ride",
           "transit": "Green Line · 15 min",
-          "rating": 5,
+          "bases": 3,
+          "hit": "Triple",
           "url": "https://www.thefreedomtrail.org/"
         },
         {
@@ -271,7 +293,8 @@
           "dist": "3.5 mi",
           "walk": "T ride",
           "transit": "Red Line · 25 min",
-          "rating": 4,
+          "bases": 4,
+          "hit": "Home Run",
           "url": "https://www.harvardsquare.com/"
         }
       ]

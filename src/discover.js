@@ -5,6 +5,10 @@ import discover from './data/discover.json';
 renderHeader('discover.html');
 renderFooter();
 
+const BASE = import.meta.env.BASE_URL;
+// Local photos live in /public/img (relative path); landmark photos are full URLs.
+const photoSrc = (p) => (p.startsWith('http') ? p : `${BASE}${p}`);
+
 const { venue, groups, transit } = discover;
 
 /* Flat list of every place + the venue, so the map and the cards share one source. */
@@ -15,7 +19,26 @@ const allPlaces = groups.flatMap((g) =>
 const escapeHtml = (s = '') =>
   s.replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
-const stars = (n = 0) => '●'.repeat(n) + '○'.repeat(Math.max(0, 5 - n));
+/* ---------- Proximity meter: a baseball diamond, runner advanced `bases` (1–4).
+   1 = Single (steps away) … 4 = Home Run (a trip). Drives home how close things are. ---------- */
+const DIAMOND_PTS = { H: [22, 40], B1: [40, 22], B2: [22, 4], B3: [4, 22] };
+function basesDiamond(bases = 2) {
+  const seq = ['H', 'B1', 'B2', 'B3', 'H']; // running the bases
+  const lit = (i) => i <= bases;
+  const edge = (a, b, i) =>
+    `<line x1="${DIAMOND_PTS[a][0]}" y1="${DIAMOND_PTS[a][1]}" x2="${DIAMOND_PTS[b][0]}" y2="${DIAMOND_PTS[b][1]}" class="dm-edge${lit(i + 1) ? ' on' : ''}" />`;
+  const edges = seq.slice(0, -1).map((a, i) => edge(a, seq[i + 1], i)).join('');
+  const base = (key, i, home = false) => {
+    const [x, y] = DIAMOND_PTS[key];
+    const on = home ? bases >= 4 : i <= bases;
+    return `<rect x="${x - 3}" y="${y - 3}" width="6" height="6" transform="rotate(45 ${x} ${y})" class="dm-base${on ? ' on' : ''}${home ? ' dm-home' : ''}" />`;
+  };
+  return `
+    <svg class="bases-diamond" viewBox="0 0 44 44" aria-hidden="true">
+      ${edges}
+      ${base('B1', 1)}${base('B2', 2)}${base('B3', 3)}${base('H', 4, true)}
+    </svg>`;
+}
 
 /* Baseball-card "photo" area — a real photo when we have one, otherwise a themed
    emblem panel that reads as an illustrated rookie card (never a broken image). */
@@ -29,7 +52,7 @@ function cardMedia(place) {
     <div class="place-photo-wrap">
       <img
         class="place-photo"
-        src="${escapeHtml(place.photo)}"
+        src="${escapeHtml(photoSrc(place.photo))}"
         alt="${escapeHtml(place.name)}"
         loading="lazy"
         onerror="this.closest('.place-photo-wrap').classList.add('img-failed')"
@@ -38,7 +61,7 @@ function cardMedia(place) {
     </div>`;
 }
 
-/* One baseball card. Front = photo + name + position; back = scouting report + stats. */
+/* One baseball card. Front = photo + name + proximity; back = scouting report + stats. */
 function renderCard(place) {
   return `
     <article class="place-card reveal" id="card-${place.id}" data-id="${place.id}" style="--team:${place.color}" tabindex="0">
@@ -49,7 +72,13 @@ function renderCard(place) {
           <div class="place-front-body">
             <h4>${escapeHtml(place.name)}</h4>
             <p class="place-position">${escapeHtml(place.position)}</p>
-            <p class="place-dist"><span>📍 ${escapeHtml(place.dist)}</span><span>🚶 ${escapeHtml(place.walk)}</span></p>
+            <div class="place-prox">
+              ${basesDiamond(place.bases)}
+              <span class="place-prox-text">
+                <strong>${escapeHtml(place.hit)}</strong>
+                <span>${escapeHtml(place.walk)} from home plate</span>
+              </span>
+            </div>
           </div>
           <span class="place-flip-hint">Scouting report ↻</span>
         </div>
@@ -58,10 +87,10 @@ function renderCard(place) {
           <h4>${escapeHtml(place.name)}</h4>
           <p class="place-desc">${escapeHtml(place.desc)}</p>
           <dl class="place-stats">
-            <div><dt>Distance</dt><dd>${escapeHtml(place.dist)}</dd></div>
+            <div><dt>From home plate</dt><dd>${escapeHtml(place.dist)}</dd></div>
             <div><dt>On foot</dt><dd>${escapeHtml(place.walk)}</dd></div>
             <div><dt>By T</dt><dd>${escapeHtml(place.transit)}</dd></div>
-            <div><dt>Scout grade</dt><dd class="place-rating">${stars(place.rating)}</dd></div>
+            <div><dt>The hit</dt><dd class="place-hit">${escapeHtml(place.hit)}</dd></div>
           </dl>
           <div class="place-actions">
             <button type="button" class="place-btn place-locate" data-locate="${place.id}">📍 Map</button>
@@ -71,6 +100,13 @@ function renderCard(place) {
       </div>
     </article>`;
 }
+
+/* Closeness strip — hammers home that it's all a short hop from the venue. */
+const placeCount = allPlaces.length;
+document.getElementById('discover-stats').innerHTML = `
+  <div class="close-stat"><span class="close-num">${placeCount}</span><span class="close-lbl">spots near the venue</span></div>
+  <div class="close-stat"><span class="close-num">~1 mi</span><span class="close-lbl">covers almost all of it</span></div>
+  <div class="close-stat"><span class="close-num">🟢</span><span class="close-lbl">Green Line at the door</span></div>`;
 
 /* Render the grouped card grid. */
 document.getElementById('discover-content').innerHTML = groups
@@ -103,7 +139,7 @@ document.getElementById('discover-transit-grid').innerHTML = transit
 
 /* Legend — one chip per category, colored to match the map bases. */
 document.getElementById('discover-legend').innerHTML =
-  `<span class="legend-chip legend-venue"><i></i>${escapeHtml(venue.name)}</span>` +
+  `<span class="legend-chip legend-venue"><i></i>${escapeHtml(venue.name)} (home plate)</span>` +
   groups
     .map(
       (g) =>
@@ -113,6 +149,29 @@ document.getElementById('discover-legend').innerHTML =
 
 /* ---------- Interactive map (Leaflet + CARTO light tiles) ---------- */
 const reduce = prefersReducedMotion();
+
+/* An SVG baseball, ringed in the category color, with two red seams. */
+function ballSVG(color) {
+  return `
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="12" cy="12" r="10" fill="#fff" stroke="${color}" stroke-width="2.4"/>
+      <path d="M6 3.2 Q1.8 12 6 20.8" fill="none" stroke="#8f2d32" stroke-width="1.1" stroke-linecap="round"/>
+      <path d="M18 3.2 Q22.2 12 18 20.8" fill="none" stroke="#8f2d32" stroke-width="1.1" stroke-linecap="round"/>
+      <g stroke="#8f2d32" stroke-width="0.8" stroke-linecap="round">
+        <path d="M4.2 7 L6.4 6.2"/><path d="M3.4 10 L5.6 9.6"/><path d="M3.4 14 L5.6 14.4"/><path d="M4.2 17 L6.4 17.8"/>
+        <path d="M19.8 7 L17.6 6.2"/><path d="M20.6 10 L18.4 9.6"/><path d="M20.6 14 L18.4 14.4"/><path d="M19.8 17 L17.6 17.8"/>
+      </g>
+    </svg>`;
+}
+
+/* A home-plate pentagon for the venue marker. */
+function homePlateSVG() {
+  return `
+    <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+      <polygon points="5,4 27,4 27,17 16,28 5,17" fill="#8f2d32" stroke="#fff" stroke-width="2.4" stroke-linejoin="round"/>
+      <polygon points="9,8 23,8 23,16 16,23 9,16" fill="none" stroke="rgba(255,255,255,0.65)" stroke-width="1"/>
+    </svg>`;
+}
 
 function initMap() {
   const el = document.getElementById('discover-map');
@@ -131,26 +190,31 @@ function initMap() {
     subdomains: 'abcd',
   }).addTo(map);
 
-  // Custom baseball marker: a stitched ball ringed in the category color.
-  const ballIcon = (color, home = false) =>
+  const ballIcon = (color) =>
     L.divIcon({
       className: 'bnb-pin-wrap',
-      html: `<span class="bnb-pin${home ? ' bnb-pin-home' : ''}" style="--team:${color}">${
-        home ? '🏠' : ''
-      }</span>`,
-      iconSize: home ? [40, 40] : [28, 28],
-      iconAnchor: home ? [20, 20] : [14, 14],
-      popupAnchor: [0, home ? -20 : -14],
+      html: `<span class="bnb-pin">${ballSVG(color)}</span>`,
+      iconSize: [30, 30],
+      iconAnchor: [15, 15],
+      popupAnchor: [0, -15],
+    });
+  const homeIcon = () =>
+    L.divIcon({
+      className: 'bnb-pin-wrap',
+      html: `<span class="bnb-pin bnb-pin-home">${homePlateSVG()}</span>`,
+      iconSize: [42, 42],
+      iconAnchor: [21, 21],
+      popupAnchor: [0, -21],
     });
 
   const markers = {};
 
   // Venue = home plate.
-  L.marker(venue.coords, { icon: ballIcon('#8f2d32', true), zIndexOffset: 1000 })
+  L.marker(venue.coords, { icon: homeIcon(), zIndexOffset: 1000 })
     .addTo(map)
     .bindPopup(
       `<div class="map-pop">
-         <span class="map-pop-tag" style="--team:#8f2d32">${escapeHtml(venue.position)}</span>
+         <span class="map-pop-tag" style="--team:#8f2d32">🏟️ ${escapeHtml(venue.position)}</span>
          <strong>${escapeHtml(venue.name)}</strong>
          <span class="map-pop-desc">${escapeHtml(venue.desc)}</span>
          <a class="map-pop-link" href="${mapsUrl(EVENT.venue.mapsQuery)}" target="_blank" rel="noopener">Open in Maps ↗</a>
@@ -166,7 +230,7 @@ function initMap() {
       <div class="map-pop">
         <span class="map-pop-tag" style="--team:${place.color}">${escapeHtml(place.tag)}</span>
         <strong>${escapeHtml(place.name)}</strong>
-        <span class="map-pop-meta">🚶 ${escapeHtml(place.walk)} · 🚇 ${escapeHtml(place.transit)}</span>
+        <span class="map-pop-meta">⚾ ${escapeHtml(place.hit)} · ${escapeHtml(place.walk)} from home plate</span>
         <span class="map-pop-desc">${escapeHtml(place.desc)}</span>
         <span class="map-pop-actions">
           <a class="map-pop-link" href="${escapeHtml(place.url)}" target="_blank" rel="noopener">Visit ↗</a>
@@ -177,7 +241,6 @@ function initMap() {
       .addTo(map)
       .bindPopup(popup, { className: 'bnb-popup' });
 
-    // Hovering a marker highlights its card; hovering the card is handled below.
     marker.on('mouseover', () => document.getElementById(`card-${place.id}`)?.classList.add('is-cued'));
     marker.on('mouseout', () => document.getElementById(`card-${place.id}`)?.classList.remove('is-cued'));
     markers[place.id] = marker;
@@ -192,7 +255,7 @@ function initMap() {
     flashCard(btn.dataset.card);
   });
 
-  // "On the map" button on a card → fly there and open its popup.
+  // "Map" button on a card → fly there and open its popup.
   document.getElementById('discover-content').addEventListener('click', (e) => {
     const btn = e.target.closest('.place-locate');
     if (!btn) return;
@@ -208,7 +271,6 @@ function initMap() {
     marker.openPopup();
   });
 
-  // Keep the map sized correctly once it becomes visible.
   setTimeout(() => map.invalidateSize(), 200);
 }
 

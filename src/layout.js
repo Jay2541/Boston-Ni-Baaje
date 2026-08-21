@@ -2,6 +2,9 @@ import { EVENT, mapsUrl } from './data/event.js';
 
 const BASE = import.meta.env.BASE_URL;
 
+// Point the Fenway backdrop (hero + subtle site-wide wash) at the base-aware image path.
+document.documentElement.style.setProperty('--fenway-bg', `url("${BASE}fenway-bg.jpg")`);
+
 // Register the service worker so the site is installable as an app (PWA).
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
