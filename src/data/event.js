@@ -21,7 +21,7 @@ export const EVENT = {
   },
   contact: {
     info: 'bostonnibaaje@gmail.com',
-    sponsorship: 'sponsorship@bostonnibaaje.com',
+    sponsorship: 'bostonnibaaje.sponsorships@gmail.com',
     director: 'director@bostonnibaaje.com',
     registration: 'registration@bostonnibaaje.com',
     hospitality: 'hospitality@bostonnibaaje.com',

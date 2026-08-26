@@ -1271,14 +1271,6 @@ section > p a, .lead a { color: var(--gold); text-decoration: underline; }
 }
 .board-card h4 { color: var(--ink); font-size: 1rem; margin: 0; }
 .board-card p { color: var(--text-dim); font-size: 0.85rem; margin: 0.2rem 0 0; }
-.board-contact {
-  display: block;
-  text-align: center;
-  color: var(--gold);
-  font-size: 0.9rem;
-  margin-top: 0.75rem;
-  text-decoration: underline;
-}
 
 /* ---------- Resources ---------- */
 .resource-block {

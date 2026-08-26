@@ -1,11 +1,20 @@
 {
-  "venue": {
-    "name": "Huntington Theatre",
-    "position": "Home Plate",
-    "coords": [42.3418, -71.0857],
-    "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/Huntington_Theatre_Company_Huntington_Avenue_Theatre.jpg/500px-Huntington_Theatre_Company_Huntington_Avenue_Theatre.jpg",
-    "desc": "The mainstage, home plate for the weekend. Everything below is measured from this corner of the Fenway."
-  },
+  "venues": [
+    {
+      "name": "Huntington Theatre",
+      "position": "Home Plate",
+      "coords": [42.3418, -71.0857],
+      "desc": "The mainstage, home plate for the weekend. Everything below is measured from this corner of the Fenway.",
+      "mapsQuery": "Huntington Theatre, 264 Huntington Ave, Boston, MA 02115"
+    },
+    {
+      "name": "Hilton Back Bay",
+      "position": "Home Plate",
+      "coords": [42.3477, -71.0862],
+      "desc": "The official event hotel, located in Back Bay. Just minutes away from Huntington Theatre.",
+      "mapsQuery": "Hilton Boston Back Bay, 40 Dalton St, Boston, MA 02115"
+    }
+  ],
   "groups": [
     {
       "key": "home-team",

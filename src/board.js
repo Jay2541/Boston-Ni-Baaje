@@ -1,5 +1,4 @@
 import { renderHeader, renderFooter, initReveal } from './layout.js';
-import { EVENT } from './data/event.js';
 import { BOARD } from './data/board.js';
 
 renderHeader('board.html');
@@ -26,14 +25,10 @@ const groups = BOARD.map((group) => {
     )
     .join('');
 
-  const email = group.contactKey && EVENT.contact[group.contactKey];
-  const contact = email ? `<a class="board-contact" href="mailto:${email}">${email}</a>` : '';
-
   return `
     <div class="board-group reveal">
       <h3>${group.category}</h3>
       <div class="board-cards">${cards}</div>
-      ${contact}
     </div>`;
 }).join('');
 

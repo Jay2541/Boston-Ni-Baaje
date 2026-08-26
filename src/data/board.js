@@ -3,7 +3,6 @@
 export const BOARD = [
   {
     category: 'Directors',
-    contactKey: 'director',
     members: [
       { name: 'Name TBD', role: 'Director' },
       { name: 'Name TBD', role: 'Director' },
@@ -22,7 +21,6 @@ export const BOARD = [
   },
   {
     category: 'Registration Chairs',
-    contactKey: 'registration',
     members: [
       { name: 'Name TBD', role: 'Registration Chair' },
       { name: 'Name TBD', role: 'Registration Chair' },
@@ -30,7 +28,6 @@ export const BOARD = [
   },
   {
     category: 'Sponsorship Chairs',
-    contactKey: 'sponsorship',
     members: [
       { name: 'Name TBD', role: 'Sponsorship Chair' },
       { name: 'Name TBD', role: 'Sponsorship Chair' },
@@ -38,7 +35,6 @@ export const BOARD = [
   },
   {
     category: 'Hospitality Chairs',
-    contactKey: 'hospitality',
     members: [
       { name: 'Name TBD', role: 'Hospitality Chair' },
       { name: 'Name TBD', role: 'Hospitality Chair' },

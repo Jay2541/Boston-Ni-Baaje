@@ -1,5 +1,5 @@
 import { renderHeader, renderFooter, initReveal, prefersReducedMotion } from './layout.js';
-import { EVENT, mapsUrl } from './data/event.js';
+import { mapsUrl } from './data/event.js';
 import discover from './data/discover.json';
 
 renderHeader('discover.html');
@@ -9,7 +9,7 @@ const BASE = import.meta.env.BASE_URL;
 // Local photos live in /public/img (relative path); landmark photos are full URLs.
 const photoSrc = (p) => (p.startsWith('http') ? p : `${BASE}${p}`);
 
-const { venue, groups, transit } = discover;
+const { venues, groups, transit } = discover;
 
 /* Flat list of every place + the venue, so the map and the cards share one source. */
 const allPlaces = groups.flatMap((g) =>
@@ -139,7 +139,9 @@ document.getElementById('discover-transit-grid').innerHTML = transit
 
 /* Legend — one chip per category, colored to match the map bases. */
 document.getElementById('discover-legend').innerHTML =
-  `<span class="legend-chip legend-venue"><i></i>${escapeHtml(venue.name)} (home plate)</span>` +
+  venues
+    .map((v) => `<span class="legend-chip legend-venue"><i></i>${escapeHtml(v.name)} (home plate)</span>`)
+    .join('') +
   groups
     .map(
       (g) =>
@@ -182,7 +184,7 @@ function initMap() {
   }
   const L = window.L;
 
-  const map = L.map(el, { scrollWheelZoom: false, zoomControl: true }).setView(venue.coords, 15);
+  const map = L.map(el, { scrollWheelZoom: false, zoomControl: true }).setView(venues[0].coords, 15);
   L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
     attribution:
       '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>',
@@ -209,20 +211,22 @@ function initMap() {
 
   const markers = {};
 
-  // Venue = home plate.
-  L.marker(venue.coords, { icon: homeIcon(), zIndexOffset: 1000 })
-    .addTo(map)
-    .bindPopup(
-      `<div class="map-pop">
-         <span class="map-pop-tag" style="--team:#8f2d32">🏟️ ${escapeHtml(venue.position)}</span>
-         <strong>${escapeHtml(venue.name)}</strong>
-         <span class="map-pop-desc">${escapeHtml(venue.desc)}</span>
-         <a class="map-pop-link" href="${mapsUrl(EVENT.venue.mapsQuery)}" target="_blank" rel="noopener">Open in Maps ↗</a>
-       </div>`,
-      { className: 'bnb-popup' }
-    );
+  // Venues = home plate (the theatre and the event hotel).
+  venues.forEach((v) => {
+    L.marker(v.coords, { icon: homeIcon(), zIndexOffset: 1000 })
+      .addTo(map)
+      .bindPopup(
+        `<div class="map-pop">
+           <span class="map-pop-tag" style="--team:#8f2d32">🏟️ ${escapeHtml(v.position)}</span>
+           <strong>${escapeHtml(v.name)}</strong>
+           <span class="map-pop-desc">${escapeHtml(v.desc)}</span>
+           <a class="map-pop-link" href="${mapsUrl(v.mapsQuery)}" target="_blank" rel="noopener">Open in Maps ↗</a>
+         </div>`,
+        { className: 'bnb-popup' }
+      );
+  });
 
-  const bounds = [venue.coords];
+  const bounds = venues.map((v) => v.coords);
 
   allPlaces.forEach((place) => {
     bounds.push(place.coords);
