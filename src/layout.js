@@ -116,7 +116,7 @@ export function renderFooter() {
         <a href="${mapsUrl(EVENT.venue.mapsQuery)}" target="_blank" rel="noopener">${EVENT.venue.name}</a>
       </div>
     </div>
-    <div class="footer-copy">&copy; ${year} ${EVENT.name}. All rights reserved.</div>
+    <div class="footer-copy">${EVENT.name} &middot; Boston, MA &middot; ${year}</div>
   `;
 }
 

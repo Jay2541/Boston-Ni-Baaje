@@ -43,6 +43,7 @@
 
   --font-display: 'Playfair Display', Georgia, serif;
   --font-script: 'Dancing Script', cursive;
+  --font-brand: 'Bebas Neue', 'Playfair Display', sans-serif;
   --font-body: 'Plus Jakarta Sans', 'Segoe UI', system-ui, sans-serif;
 }
 
@@ -136,9 +137,10 @@ h1, h2, h3, h4 {
   display: flex;
   align-items: center;
   gap: 0.65rem;
-  font-family: var(--font-script);
-  font-weight: 700;
-  font-size: 1.55rem;
+  font-family: var(--font-brand);
+  font-weight: 400;
+  letter-spacing: 0.03em;
+  font-size: 1.7rem;
   color: var(--ink);
   flex-shrink: 0; /* keep logo/title fixed while nav scrolls */
 }
@@ -385,8 +387,9 @@ h1, h2, h3, h4 {
 @keyframes pulse { 0%,100%{opacity:1;transform:scale(1);} 50%{opacity:0.4;transform:scale(0.7);} }
 
 .hero h1 {
-  font-family: var(--font-script);
-  font-weight: 700;
+  font-family: var(--font-brand);
+  font-weight: 400;
+  letter-spacing: 0.04em;
   font-size: clamp(3.2rem, 11vw, 6.5rem);
   line-height: 1;
   margin-bottom: 0.6rem;
@@ -506,12 +509,14 @@ section > p a, .lead a { color: var(--gold); text-decoration: underline; }
 
 /* ---------- Stats ---------- */
 .stats {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));  /* always one centered row */
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
   gap: clamp(0.6rem, 2vw, 1.5rem);
   text-align: center;
 }
 .stat {
+  flex: 0 1 200px;
   padding: clamp(1rem, 3vw, 1.5rem) clamp(0.5rem, 2vw, 1rem);
   border-radius: var(--radius);
   background: var(--panel);
@@ -1311,6 +1316,14 @@ section > p a, .lead a { color: var(--gold); text-decoration: underline; }
   background: rgba(143, 45, 50, 0.14);
   border-color: var(--red);
   transform: translateY(-2px);
+}
+.resource-block .signoff { color: var(--text); margin-top: 1.75rem; }
+.resource-block .signoff-names {
+  display: block;
+  font-family: var(--font-script);
+  font-size: 1.4rem;
+  color: var(--gold);
+  margin: 0.4rem 0 0.2rem;
 }
 
 /* ---------- Team portal / sign-in ---------- */

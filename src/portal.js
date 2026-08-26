@@ -111,8 +111,8 @@ function friendlyAuthError(err) {
   if (code.includes('invalid-credential') || code.includes('wrong-password') || code.includes('user-not-found')) {
     return 'Wrong email or password. Check with the directors if unsure.';
   }
-  if (code.includes('too-many-requests')) return 'Too many attempts — try again in a bit.';
-  if (code.includes('network')) return 'Network issue — check your connection.';
+  if (code.includes('too-many-requests')) return 'Too many attempts. Try again in a bit.';
+  if (code.includes('network')) return 'Network issue. Check your connection.';
   return 'Could not sign in. Please try again.';
 }
 
@@ -224,8 +224,8 @@ function showAnnounceView() {
       const { pushed } = await broadcast({ title, body });
       form.reset();
       showStatus(status, pushed
-        ? '✅ Sent to all teams — feed updated and phones notified!'
-        : '✅ Posted to the feed for all teams. (Push not sent — check Worker setup.)', true);
+        ? '✅ Sent to all teams. Feed updated and phones notified!'
+        : '✅ Posted to the feed for all teams. (Push not sent. Check Worker setup.)', true);
     } catch {
       showStatus(status, 'Could not send. Make sure you’re signed in as the board.', false);
     } finally {

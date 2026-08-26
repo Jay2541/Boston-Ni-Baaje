@@ -4,14 +4,14 @@
     "position": "Home Plate",
     "coords": [42.3418, -71.0857],
     "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/Huntington_Theatre_Company_Huntington_Avenue_Theatre.jpg/500px-Huntington_Theatre_Company_Huntington_Avenue_Theatre.jpg",
-    "desc": "The mainstage — home plate for the weekend. Everything below is measured from this corner of the Fenway."
+    "desc": "The mainstage, home plate for the weekend. Everything below is measured from this corner of the Fenway."
   },
   "groups": [
     {
       "key": "home-team",
       "category": "The Home Team",
       "eyebrow": "⚾ Right by the venue",
-      "blurb": "Icons of the Fenway — all within an easy walk of home plate.",
+      "blurb": "Icons of the Fenway, all within an easy walk of home plate.",
       "color": "#8f2d32",
       "places": [
         {
@@ -38,7 +38,7 @@
           "coords": [42.3426, -71.0857],
           "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Symphony_Hall_front_view.jpg/500px-Symphony_Hall_front_view.jpg",
           "emoji": "🎻",
-          "desc": "Home of the Boston Symphony and one of the finest-sounding rooms on earth — literally across the street from the venue.",
+          "desc": "Home of the Boston Symphony and one of the finest-sounding rooms on earth, literally across the street from the venue.",
           "dist": "0.1 mi",
           "walk": "2 min walk",
           "transit": "Right next door",
@@ -54,7 +54,7 @@
           "coords": [42.3394, -71.0940],
           "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/Museum_of_Fine_Arts%2C_Boston_%2854954248311%29.jpg/500px-Museum_of_Fine_Arts%2C_Boston_%2854954248311%29.jpg",
           "emoji": "🖼️",
-          "desc": "One of the largest art museums in the country — nearly half a million works, from ancient Egypt to right now.",
+          "desc": "One of the largest art museums in the country, with nearly half a million works, from ancient Egypt to right now.",
           "dist": "0.5 mi",
           "walk": "10 min walk",
           "transit": "Green Line E · 4 min",
@@ -70,7 +70,7 @@
           "coords": [42.3381, -71.0990],
           "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/IsabellaStewartGardenerMuseumMainLobby.jpg/500px-IsabellaStewartGardenerMuseumMainLobby.jpg",
           "emoji": "🏛️",
-          "desc": "A Venetian-style palazzo built around a blooming courtyard — home to the world's most famous unsolved art heist.",
+          "desc": "A Venetian-style palazzo built around a blooming courtyard, home to the world's most famous unsolved art heist.",
           "dist": "0.7 mi",
           "walk": "13 min walk",
           "transit": "Green Line E · 6 min",
@@ -84,7 +84,7 @@
       "key": "grand-slams",
       "category": "Grand Slams",
       "eyebrow": "🍽️ Eat well",
-      "blurb": "Fenway's best plates — local favorites, no chains.",
+      "blurb": "Fenway's best plates: local favorites, no chains.",
       "color": "#2a4a6b",
       "places": [
         {
@@ -95,7 +95,7 @@
           "coords": [42.3436, -71.0997],
           "photo": "img/time-out-market.jpg",
           "emoji": "🍽️",
-          "desc": "The city's best chefs under one roof — 15+ kitchens, two bars, one giant hall. Impossible to lose here.",
+          "desc": "The city's best chefs under one roof: 15+ kitchens, two bars, one giant hall. Impossible to lose here.",
           "dist": "0.9 mi",
           "walk": "18 min walk",
           "transit": "Green Line · 8 min",
@@ -127,7 +127,7 @@
           "coords": [42.3495, -71.0757],
           "photo": "img/saltie-girl.jpg",
           "emoji": "🦞",
-          "desc": "Back Bay's cult seafood bar — torched lobster rolls, towers of shellfish, and tinned-fish boards. Worth the short hop.",
+          "desc": "Back Bay's cult seafood bar: torched lobster rolls, towers of shellfish, and tinned-fish boards. Worth the short hop.",
           "dist": "1.0 mi",
           "walk": "18 min walk",
           "transit": "Green Line · 9 min",
@@ -184,7 +184,7 @@
           "coords": [42.3466, -71.0983],
           "photo": "img/cask-n-flagon.jpg",
           "emoji": "🍻",
-          "desc": "The legendary bar in the shadow of the Green Monster — game-day HQ since 1969. Loud, packed, and exactly right.",
+          "desc": "The legendary bar in the shadow of the Green Monster, game-day HQ since 1969. Loud, packed, and exactly right.",
           "dist": "1.0 mi",
           "walk": "20 min walk",
           "transit": "Green Line · 8 min",
@@ -200,7 +200,7 @@
           "coords": [42.3466, -71.0955],
           "photo": "img/house-of-blues.jpg",
           "emoji": "🎤",
-          "desc": "The big room on Lansdowne Street, right behind the Green Monster — touring acts and late shows steps from the park.",
+          "desc": "The big room on Lansdowne Street, right behind the Green Monster, with touring acts and late shows steps from the park.",
           "dist": "0.9 mi",
           "walk": "18 min walk",
           "transit": "Green Line · 8 min",
@@ -241,7 +241,7 @@
           "coords": [42.3505, -71.0810],
           "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Newbury_Street_Boston_May_2018.jpg/500px-Newbury_Street_Boston_May_2018.jpg",
           "emoji": "🛍️",
-          "desc": "Eight brownstone blocks of shops, cafés, and galleries — Boston's best-looking street to wander.",
+          "desc": "Eight brownstone blocks of shops, cafés, and galleries, and Boston's best-looking street to wander.",
           "dist": "1.0 mi",
           "walk": "16 min walk",
           "transit": "Green Line · 9 min",
@@ -273,7 +273,7 @@
           "coords": [42.3564, -71.0632],
           "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/USA-The_Freedom_Trail.JPG/500px-USA-The_Freedom_Trail.JPG",
           "emoji": "🇺🇸",
-          "desc": "A 2.5-mile red-brick line through 16 sites of Revolutionary history — Boston's original walk-off.",
+          "desc": "A 2.5-mile red-brick line through 16 sites of Revolutionary history, Boston's original walk-off.",
           "dist": "1.9 mi",
           "walk": "T ride",
           "transit": "Green Line · 15 min",
@@ -289,7 +289,7 @@
           "coords": [42.3736, -71.1190],
           "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Harvard_Square_in_Cambridge%2C_Massachusetts.jpg/500px-Harvard_Square_in_Cambridge%2C_Massachusetts.jpg",
           "emoji": "🎓",
-          "desc": "Bookstores, buskers, and centuries of collegiate charm across the river — an easy afternoon in Cambridge.",
+          "desc": "Bookstores, buskers, and centuries of collegiate charm across the river, for an easy afternoon in Cambridge.",
           "dist": "3.5 mi",
           "walk": "T ride",
           "transit": "Red Line · 25 min",
@@ -301,8 +301,8 @@
     }
   ],
   "transit": [
-    { "name": "MBTA — The T", "tag": "🚇 Subway & Bus", "desc": "The Green Line E stops at Symphony & MFA, right by the venue.", "url": "https://www.mbta.com/" },
-    { "name": "Blue Bikes", "tag": "🚲 Bike share", "desc": "Docks all over the Fenway — grab one and ride the Emerald Necklace.", "url": "https://bluebikes.com/" },
-    { "name": "Logan Airport (BOS)", "tag": "✈️ Fly in", "desc": "About 20 minutes from the Fenway by car or the Silver + Green Line.", "url": "https://www.massport.com/logan-airport" }
+    { "name": "MBTA", "tag": "🚇 Subway & Bus", "desc": "The Green Line E stops at Symphony & MFA, right by the venue.", "url": "https://www.mbta.com/" },
+    { "name": "Blue Bikes", "tag": "🚲 Bike share", "desc": "Docks all over the Fenway and Back Bay. Grab one and go.", "url": "https://bluebikes.com/" },
+    { "name": "Logan Airport (BOS)", "tag": "✈️ Fly in", "desc": "About 20 minutes from Fenway by car or the Silver + Green Line. A free shuttle also runs from Logan Airport to Back Bay.", "url": "https://www.massport.com/logan-airport" }
   ]
 }

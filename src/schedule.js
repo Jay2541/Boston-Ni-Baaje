@@ -27,7 +27,7 @@ const timeline = Object.entries(byDay)
               <div class="timeline-body">
                 <h4>${item.event}</h4>
                 ${item.note ? `<p class="timeline-note">${item.note}</p>` : ''}
-                <p class="timeline-loc">📍 ${item.location}</p>
+                ${item.location ? `<p class="timeline-loc">📍 ${item.location}</p>` : ''}
               </div>
             </li>`
             )
@@ -65,7 +65,7 @@ if (aboutVenueEl) {
     <div class="venue-feature reveal">
       <img class="venue-photo" src="${BASE}${EVENT.venue.photo}" alt="${EVENT.venue.name}" />
       <div class="venue-feature-text">
-        <span class="venue-eyebrow">⚾ This year's theme &mdash; ${EVENT.theme}</span>
+        <span class="venue-eyebrow">⚾ This year's theme: ${EVENT.theme}</span>
         <h3>About the ${EVENT.venue.name}</h3>
         <p>${EVENT.venue.about}</p>
         <a class="btn btn-outline" href="${mapsUrl(EVENT.venue.mapsQuery)}" target="_blank" rel="noopener">Get Directions &rarr;</a>
