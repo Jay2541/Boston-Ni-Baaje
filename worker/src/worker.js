@@ -70,7 +70,7 @@ async function handleSend(request, env) {
         message: {
           topic: TOPIC,
           notification: { title, body },
-          webpush: { fcm_options: { link: `${env.ALLOW_ORIGIN}/Boston-Ni-Baaje/updates.html` } },
+          webpush: { fcm_options: { link: `${env.ALLOW_ORIGIN}/updates.html` } },
         },
       }),
     }
