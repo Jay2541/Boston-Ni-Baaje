@@ -4,21 +4,12 @@ import { BOARD } from './data/board.js';
 renderHeader('board.html');
 renderFooter();
 
-const initials = (name) =>
-  name
-    .split(' ')
-    .map((w) => w[0])
-    .filter(Boolean)
-    .slice(0, 2)
-    .join('')
-    .toUpperCase();
-
 const groups = BOARD.map((group) => {
   const cards = group.members
     .map(
       (m) => `
       <div class="board-card reveal">
-        <div class="board-photo">${initials(m.name)}</div>
+        <div class="board-photo"></div>
         <h4>${m.name}</h4>
         <p>${m.role}</p>
       </div>`

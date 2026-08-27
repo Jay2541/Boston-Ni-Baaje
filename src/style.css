@@ -1242,13 +1242,15 @@ section > p a, .lead a { color: var(--gold); text-decoration: underline; }
   border-bottom: 1px solid var(--panel-border);
 }
 .board-cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 1.25rem;
   max-width: 640px;
   margin: 0 auto;
 }
 .board-card {
+  flex: 0 1 160px;
   text-align: center;
   padding: 1.25rem 1rem;
   border-radius: var(--radius);

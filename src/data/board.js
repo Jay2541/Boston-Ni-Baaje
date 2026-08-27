@@ -1,47 +1,94 @@
-// Placeholder board roster. Fill in real names and photo URLs as they're confirmed,
-// then swap the initials-avatar in board.js for an <img>.
+// Board roster. Photos are placeholders (blank) until headshots are ready —
+// swap the empty .board-photo div in board.js for an <img> once available.
 export const BOARD = [
   {
     category: 'Directors',
     members: [
-      { name: 'Name TBD', role: 'Director' },
-      { name: 'Name TBD', role: 'Director' },
+      { name: 'Maya Mehta', role: 'Director' },
+      { name: 'Diya Chatwani', role: 'Director' },
     ],
   },
   {
-    category: 'Logistics Chair',
-    members: [{ name: 'Name TBD', role: 'Logistics Chair' }],
-  },
-  {
-    category: 'Show Chairs',
+    category: 'Logistics',
     members: [
-      { name: 'Name TBD', role: 'Show Chair' },
-      { name: 'Name TBD', role: 'Show Chair' },
+      { name: 'Jheel Patel', role: 'Logistics' },
+      { name: 'Aastha Patel', role: 'Logistics' },
+      { name: 'Shreya Patel', role: 'Logistics' },
     ],
   },
   {
-    category: 'Registration Chairs',
+    category: 'Hospitality',
     members: [
-      { name: 'Name TBD', role: 'Registration Chair' },
-      { name: 'Name TBD', role: 'Registration Chair' },
+      { name: 'Inesh Parikh', role: 'Hospitality' },
+      { name: 'Moulika Sivalenka', role: 'Hospitality' },
+      { name: 'Sahasra Karri', role: 'Hospitality' },
+      { name: 'Sanketh Udupa', role: 'Hospitality' },
     ],
   },
   {
-    category: 'Sponsorship Chairs',
+    category: 'Show',
     members: [
-      { name: 'Name TBD', role: 'Sponsorship Chair' },
-      { name: 'Name TBD', role: 'Sponsorship Chair' },
+      { name: 'Suhani Shah', role: 'Show' },
+      { name: 'Aarya Patel', role: 'Show' },
+      { name: 'Nidhi Tadepalli', role: 'Show' },
     ],
   },
   {
-    category: 'Hospitality Chairs',
+    category: 'Tech',
     members: [
-      { name: 'Name TBD', role: 'Hospitality Chair' },
-      { name: 'Name TBD', role: 'Hospitality Chair' },
+      { name: 'Jay Patel', role: 'Tech' },
+      { name: 'Ved Naykude', role: 'Tech' },
     ],
   },
   {
-    category: 'Finance Chairs',
-    members: [{ name: 'Name TBD', role: 'Finance Chair' }],
+    category: 'Finance',
+    members: [
+      { name: 'Hitesh Damineni', role: 'Finance' },
+      { name: 'Parth Patel', role: 'Finance' },
+    ],
+  },
+  {
+    category: 'Sponsorship',
+    members: [
+      { name: 'Anisha Gandhi', role: 'Sponsorship' },
+      { name: 'Shreyas Lenkala', role: 'Sponsorship' },
+    ],
+  },
+  {
+    category: 'Social',
+    members: [
+      { name: 'Samarth Keerthivasan', role: 'Social' },
+      { name: 'Janvi Shah', role: 'Social' },
+    ],
+  },
+  {
+    category: 'Registration',
+    members: [
+      { name: 'Himasri Cheerla', role: 'Registration' },
+      { name: 'Anya Amin', role: 'Registration' },
+    ],
+  },
+  {
+    category: 'Marketing',
+    members: [
+      { name: 'Aishani Raju', role: 'Marketing' },
+      { name: 'Sanjana Chennupati', role: 'Marketing' },
+    ],
+  },
+  {
+    category: 'Creative',
+    members: [
+      { name: 'Maya Nair', role: 'Creative' },
+      { name: 'Ariya Patel', role: 'Creative' },
+      { name: 'Nithya Gangireddy', role: 'Creative' },
+    ],
+  },
+  {
+    category: 'Head Liaison',
+    members: [{ name: 'Hetvi Khamar', role: 'Head Liaison' }],
+  },
+  {
+    category: 'Judging',
+    members: [{ name: 'Varsha Sathish', role: 'Judging' }],
   },
 ];
