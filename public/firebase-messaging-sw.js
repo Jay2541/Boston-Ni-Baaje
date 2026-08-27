@@ -19,8 +19,8 @@ messaging.onBackgroundMessage((payload) => {
   const n = payload.notification || {};
   self.registration.showNotification(n.title || 'Boston Ni Baaje', {
     body: n.body || '',
-    icon: '/Boston-Ni-Baaje/pwa-192.png',
-    badge: '/Boston-Ni-Baaje/pwa-192.png',
+    icon: '/pwa-192.png',
+    badge: '/pwa-192.png',
     data: payload.data || {},
   });
 });
@@ -28,11 +28,11 @@ messaging.onBackgroundMessage((payload) => {
 // Focus/open the app when a notification is tapped.
 self.addEventListener('notificationclick', (event) => {
   event.notification.close();
-  const url = '/Boston-Ni-Baaje/updates.html';
+  const url = '/updates.html';
   event.waitUntil(
     clients.matchAll({ type: 'window', includeUncontrolled: true }).then((wins) => {
       for (const w of wins) {
-        if (w.url.includes('/Boston-Ni-Baaje/') && 'focus' in w) return w.focus();
+        if (w.url.startsWith(self.location.origin) && 'focus' in w) return w.focus();
       }
       return clients.openWindow(url);
     })
