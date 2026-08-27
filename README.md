@@ -54,7 +54,21 @@ to GitHub Pages via GitHub Actions.
 **One-time setup:** in the repo's GitHub Settings → Pages, set "Source" to **GitHub Actions**
 (instead of "Deploy from a branch"). After that, every push to `main` auto-deploys.
 
-Live at: `https://<github-username>.github.io/Boston-Ni-Baaje/`
+Live at: `https://bostonnibaaje.com/`
+
+### Custom domain DNS
+
+GitHub Pages hosts the site while the domain remains registered with Squarespace. In Squarespace,
+remove the default Squarespace website records and set these DNS records instead:
+
+- `A` record for `@` → `185.199.108.153`
+- `A` record for `@` → `185.199.109.153`
+- `A` record for `@` → `185.199.110.153`
+- `A` record for `@` → `185.199.111.153`
+- `CNAME` record for `www` → `jay2541.github.io`
+
+Keep the email-security records if they are needed for email. GitHub Pages will issue HTTPS after DNS
+propagates; enable **Enforce HTTPS** in the repository's Pages settings once it becomes available.
 
 ## TODO before launch
 
