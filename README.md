@@ -8,9 +8,9 @@ Vite + vanilla JS, static multi-page site. No framework, no backend, no dependen
 Content lives in `src/data/` and plain HTML/CSS/JS. Design system (colors, fonts, animations) is in
 `src/style.css`.
 
-Features: sticky glass nav with mobile menu, animated hero with floating particles, a live countdown
-timer to the event, scroll-reveal animations, animated stat counters, and a day-grouped schedule
-timeline. Respects `prefers-reduced-motion`.
+Features: sticky glass nav with mobile menu, animated hero with floating particles, scroll-reveal
+animations, animated stat counters, and a day-grouped schedule timeline. Respects
+`prefers-reduced-motion`.
 
 The site is also an installable **PWA** (Progressive Web App) — visitors can "Add to Home Screen"
 and it opens full-screen like a real app, works offline, and uses the BNB icon. See
@@ -35,8 +35,8 @@ npm run dev
 
 ## Updating content
 
-- **Event details** (date, countdown target, venue, contact emails, social links): edit
-  `src/data/event.js`. The countdown, footer, venue cards, and contact links all read from here.
+- **Event details** (venue, contact emails, social links): edit `src/data/event.js`. The footer, venue
+  cards, and contact links all read from here.
 - **Schedule**: edit `src/data/schedule.json` — an array of
   `{ day, time, event, location, note }`. Items are grouped by `day` into the timeline
   automatically. No code changes needed.
@@ -60,7 +60,7 @@ Live at: `https://<github-username>.github.io/Boston-Ni-Baaje/`
 
 - Wire up push notifications — see [App & notifications](#app--notifications) (the Firebase step)
 - Replace sponsor logo placeholders in `sponsors.html`
-- Confirm event details in `src/data/event.js` (Feb 26–27, 2027 at the Huntington Theatre; `startISO` drives the countdown — update the year if the date shifts)
+- Confirm event details in `src/data/event.js` before launch
 - Fill in real schedule data in `src/data/schedule.json`
 - Update the homepage stat numbers in `index.html` (`data-target` values)
 

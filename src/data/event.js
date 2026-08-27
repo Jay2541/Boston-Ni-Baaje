@@ -4,11 +4,6 @@ export const EVENT = {
   edition: '1.0',
   theme: 'Fenway',
   tagline: "Boston's newest collegiate Raas competition.",
-  // Event start (used for the countdown). Update to the real date/time.
-  // Format: ISO 8601 with timezone offset. Boston is UTC-05:00 in winter (Feb), -04:00 in summer.
-  startISO: '2027-02-26T10:35:00-05:00',
-  dateLabel: 'February 27, 2027',
-  dateShort: 'Feb 27, 2027',
   venue: {
     name: 'Huntington Theatre',
     org: 'Boston, MA',

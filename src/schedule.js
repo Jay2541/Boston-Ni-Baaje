@@ -52,10 +52,6 @@ if (venueEl) {
       <p>${EVENT.venue.address}</p>
       <a class="btn-ghost" href="${mapsUrl(EVENT.venue.mapsQuery)}" target="_blank" rel="noopener">Open in Maps &rarr;</a>
     </div>
-    <div class="card reveal">
-      <h3>Date</h3>
-      <p>${EVENT.dateLabel}</p>
-    </div>
   `;
 }
 

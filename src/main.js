@@ -1,59 +1,7 @@
 import { renderHeader, renderFooter, initReveal, prefersReducedMotion } from './layout.js';
-import { EVENT } from './data/event.js';
 
 renderHeader('index.html');
 renderFooter();
-
-/* ---------- Countdown timer ---------- */
-function initCountdown() {
-  const root = document.getElementById('countdown');
-  if (!root) return;
-
-  const target = new Date(EVENT.startISO).getTime();
-  const units = [
-    { key: 'days', label: 'Days' },
-    { key: 'hours', label: 'Hours' },
-    { key: 'minutes', label: 'Minutes' },
-    { key: 'seconds', label: 'Seconds' },
-  ];
-
-  root.innerHTML = units
-    .map(
-      (u) => `
-      <div class="count-unit">
-        <span class="count-value" data-unit="${u.key}">--</span>
-        <span class="count-label">${u.label}</span>
-      </div>`
-    )
-    .join('');
-
-  const cells = {};
-  units.forEach((u) => {
-    cells[u.key] = root.querySelector(`[data-unit="${u.key}"]`);
-  });
-
-  const pad = (n) => String(n).padStart(2, '0');
-
-  const tick = () => {
-    const diff = target - Date.now();
-    if (diff <= 0) {
-      root.innerHTML = '<div class="count-live">The competition is live! 🎉</div>';
-      clearInterval(timer);
-      return;
-    }
-    const days = Math.floor(diff / 86400000);
-    const hours = Math.floor((diff % 86400000) / 3600000);
-    const minutes = Math.floor((diff % 3600000) / 60000);
-    const seconds = Math.floor((diff % 60000) / 1000);
-    cells.days.textContent = days;
-    cells.hours.textContent = pad(hours);
-    cells.minutes.textContent = pad(minutes);
-    cells.seconds.textContent = pad(seconds);
-  };
-
-  tick();
-  const timer = setInterval(tick, 1000);
-}
 
 /* ---------- Animated count-up stats ---------- */
 function initStatCounters() {
@@ -112,7 +60,6 @@ function initParticles() {
   }
 }
 
-initCountdown();
 initStatCounters();
 initParticles();
 initReveal();
