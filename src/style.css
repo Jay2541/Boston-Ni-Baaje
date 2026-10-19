@@ -468,6 +468,19 @@ section + section { margin-top: clamp(3rem, 8vw, 5.5rem); }
 }
 .section-head h2 { font-size: clamp(1.8rem, 5vw, 2.6rem); color: var(--ink); }
 .section-head p { color: var(--text-dim); margin: 0.5rem 0 0; }
+.section-head h3 { font-size: clamp(1.4rem, 4vw, 1.9rem); color: var(--ink); }
+
+/* Walk-a-thon subsection inside the AHA section */
+.walkathon {
+  max-width: 640px;
+  margin: clamp(2rem, 5vw, 2.75rem) auto 0;
+  padding-top: clamp(2rem, 5vw, 2.75rem);
+  border-top: 1px solid var(--panel-border);
+}
+.walkathon .section-head { margin-bottom: 1.5rem; }
+/* Extra air above the "Be Part of the First" banner so the walk-a-thon stays grouped with the AHA section.
+   Only the top margin changes; the gap below the banner is untouched. */
+#cause + #join { margin-top: clamp(7rem, 16vw, 10rem); }
 
 /* generic centered lead paragraph */
 section > p.lead { text-align: center; max-width: 640px; margin: 0 auto 1.5rem; color: var(--text-dim); }
