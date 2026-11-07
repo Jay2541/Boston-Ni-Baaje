@@ -1309,6 +1309,7 @@ button.legend-chip[aria-pressed="false"] { opacity: 0.5; }
   gap: clamp(1.5rem, 4vw, 2.5rem);
   align-items: start;
 }
+.board-viewer { min-width: 0; }
 .board-cover {
   margin: 0;
   position: sticky;
@@ -1453,8 +1454,11 @@ button.legend-chip[aria-pressed="false"] { opacity: 0.5; }
 }
 
 @media (max-width: 900px) {
-  .board-layout { grid-template-columns: 1fr; }
-  .board-cover { position: static; max-width: 420px; margin: 0 auto; }
+  /* minmax(0, 1fr), not 1fr: a plain 1fr column won't shrink below the tab strip's full width */
+  .board-layout { grid-template-columns: minmax(0, 1fr); }
+  .board-cover { position: static; max-width: 420px; width: 100%; margin: 0 auto; }
+  /* shorter crop on small screens: trims the empty ceiling at the top, keeps everyone in frame */
+  .board-cover img { aspect-ratio: 5 / 6; object-fit: cover; object-position: center bottom; }
 }
 @media (max-width: 720px) {
   /* one scrolling row of committee tabs instead of a tall wrapped block */
@@ -1641,33 +1645,6 @@ button.legend-chip[aria-pressed="false"] { opacity: 0.5; }
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--gold);
-}
-
-.board-tabs {
-  display: flex;
-  gap: 0.5rem;
-  padding: 0.75rem 1rem;
-  overflow-x: auto;
-  border-bottom: 1px solid var(--panel-border);
-  scrollbar-width: thin;
-}
-.team-tab {
-  flex-shrink: 0;
-  font-size: 0.8rem;
-  font-weight: 600;
-  color: var(--text-dim);
-  background: rgba(28, 26, 23, 0.04);
-  border: 1px solid var(--panel-border);
-  border-radius: 999px;
-  padding: 0.4rem 0.9rem;
-  cursor: pointer;
-  transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
-}
-.team-tab:hover { color: var(--ink); }
-.team-tab.active {
-  color: var(--cream);
-  background: var(--grad-warm);
-  border-color: transparent;
 }
 
 .chat-log {
