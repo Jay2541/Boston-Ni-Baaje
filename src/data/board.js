@@ -1,94 +1,26 @@
-// Board roster. Photos are placeholders (blank) until headshots are ready —
-// swap the empty .board-photo div in board.js for an <img> once available.
+// Board roster, one entry per committee (in display order).
+//
+// Committee photos: drop image files into src/assets/board/ named `<slug>-1.jpg`,
+// `<slug>-2.jpg`, ... (jpg, jpeg, png or webp) and they appear in that committee's
+// gallery automatically, e.g. `tech-1.jpg`, `head-liaison-1.webp`. Until a committee
+// has a photo, the page shows a "photo coming soon" placeholder.
+// Tip: resize photos to about 1600px wide first so the page stays fast.
 export const BOARD = [
+  { slug: 'directors', category: 'Directors', members: ['Maya Mehta', 'Diya Chatwani'] },
+  { slug: 'logistics', category: 'Logistics', members: ['Jheel Patel', 'Aastha Patel', 'Shreya Patel'] },
   {
-    category: 'Directors',
-    members: [
-      { name: 'Maya Mehta', role: 'Director' },
-      { name: 'Diya Chatwani', role: 'Director' },
-    ],
-  },
-  {
-    category: 'Logistics',
-    members: [
-      { name: 'Jheel Patel', role: 'Logistics' },
-      { name: 'Aastha Patel', role: 'Logistics' },
-      { name: 'Shreya Patel', role: 'Logistics' },
-    ],
-  },
-  {
+    slug: 'hospitality',
     category: 'Hospitality',
-    members: [
-      { name: 'Inesh Parikh', role: 'Hospitality' },
-      { name: 'Moulika Sivalenka', role: 'Hospitality' },
-      { name: 'Sahasra Karri', role: 'Hospitality' },
-      { name: 'Sanketh Udupa', role: 'Hospitality' },
-    ],
+    members: ['Inesh Parikh', 'Moulika Sivalenka', 'Sahasra Karri', 'Sanketh Udupa'],
   },
-  {
-    category: 'Show',
-    members: [
-      { name: 'Suhani Shah', role: 'Show' },
-      { name: 'Aarya Patel', role: 'Show' },
-      { name: 'Nidhi Tadepalli', role: 'Show' },
-    ],
-  },
-  {
-    category: 'Tech',
-    members: [
-      { name: 'Jay Patel', role: 'Tech' },
-      { name: 'Ved Naykude', role: 'Tech' },
-    ],
-  },
-  {
-    category: 'Finance',
-    members: [
-      { name: 'Hitesh Damineni', role: 'Finance' },
-      { name: 'Parth Patel', role: 'Finance' },
-    ],
-  },
-  {
-    category: 'Sponsorship',
-    members: [
-      { name: 'Anisha Gandhi', role: 'Sponsorship' },
-      { name: 'Shreyas Lenkala', role: 'Sponsorship' },
-    ],
-  },
-  {
-    category: 'Social',
-    members: [
-      { name: 'Samarth Keerthivasan', role: 'Social' },
-      { name: 'Janvi Shah', role: 'Social' },
-    ],
-  },
-  {
-    category: 'Registration',
-    members: [
-      { name: 'Himasri Cheerla', role: 'Registration' },
-      { name: 'Anya Amin', role: 'Registration' },
-    ],
-  },
-  {
-    category: 'Marketing',
-    members: [
-      { name: 'Aishani Raju', role: 'Marketing' },
-      { name: 'Sanjana Chennupati', role: 'Marketing' },
-    ],
-  },
-  {
-    category: 'Creative',
-    members: [
-      { name: 'Maya Nair', role: 'Creative' },
-      { name: 'Ariya Patel', role: 'Creative' },
-      { name: 'Nithya Gangireddy', role: 'Creative' },
-    ],
-  },
-  {
-    category: 'Head Liaison',
-    members: [{ name: 'Hetvi Khamar', role: 'Head Liaison' }],
-  },
-  {
-    category: 'Judging',
-    members: [{ name: 'Varsha Sathish', role: 'Judging' }],
-  },
+  { slug: 'show', category: 'Show', members: ['Suhani Shah', 'Aarya Patel', 'Nidhi Tadepalli'] },
+  { slug: 'tech', category: 'Tech', members: ['Jay Patel', 'Ved Naykude'] },
+  { slug: 'finance', category: 'Finance', members: ['Hitesh Damineni', 'Parth Patel'] },
+  { slug: 'sponsorship', category: 'Sponsorship', members: ['Risha Khanderia', 'Shreyas Lenkala'] },
+  { slug: 'social', category: 'Social', members: ['Samarth Keerthivasan', 'Janvi Shah'] },
+  { slug: 'registration', category: 'Registration', members: ['Himasri Cheerla', 'Anya Amin'] },
+  { slug: 'marketing', category: 'Marketing', members: ['Aishani Raju', 'Sanjana Chennupati'] },
+  { slug: 'creative', category: 'Creative', members: ['Maya Nair', 'Ariya Patel', 'Nithya Gangireddy'] },
+  { slug: 'head-liaison', category: 'Head Liaison', members: ['Hetvi Khamar'] },
+  { slug: 'judging', category: 'Judging', members: ['Varsha Sathish'] },
 ];

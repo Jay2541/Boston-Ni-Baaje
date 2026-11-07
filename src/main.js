@@ -60,6 +60,17 @@ function initParticles() {
   }
 }
 
+/* ---------- Hero video: only show the slot once the file has actually loaded ---------- */
+function initHeroVideo() {
+  const wrap = document.getElementById('hero-video');
+  const video = wrap?.querySelector('video');
+  if (!video) return;
+  const show = () => { wrap.hidden = false; };
+  if (video.readyState >= 1) show();
+  else video.addEventListener('loadedmetadata', show, { once: true });
+}
+
+initHeroVideo();
 initStatCounters();
 initParticles();
 initReveal();

@@ -13,7 +13,7 @@ const { venues, groups, transit } = discover;
 
 /* Flat list of every place + the venue, so the map and the cards share one source. */
 const allPlaces = groups.flatMap((g) =>
-  g.places.map((p) => ({ ...p, color: g.color, category: g.category }))
+  g.places.map((p) => ({ ...p, color: g.color, category: g.category, groupKey: g.key }))
 );
 
 const escapeHtml = (s = '') =>
@@ -112,7 +112,7 @@ document.getElementById('discover-stats').innerHTML = `
 document.getElementById('discover-content').innerHTML = groups
   .map(
     (group) => `
-      <div class="discover-group" style="--team:${group.color}">
+      <div class="discover-group" data-group="${group.key}" style="--team:${group.color}">
         <div class="discover-head reveal">
           <span class="eyebrow">${group.eyebrow}</span>
           <h3>${escapeHtml(group.category)}</h3>
@@ -145,9 +145,54 @@ document.getElementById('discover-legend').innerHTML =
   groups
     .map(
       (g) =>
-        `<span class="legend-chip" style="--team:${g.color}"><i></i>${escapeHtml(g.category)}</span>`
+        `<button type="button" class="legend-chip" data-group="${g.key}" aria-pressed="false" style="--team:${g.color}"><i></i>${escapeHtml(g.category)}</button>`
     )
     .join('');
+
+/* ---------- Category filter: one category at a time keeps the page short ---------- */
+const tabsEl = document.getElementById('discover-tabs');
+tabsEl.innerHTML =
+  groups
+    .map(
+      (g) =>
+        `<button type="button" class="discover-tab" role="tab" data-group="${g.key}" style="--team:${g.color}"><i></i>${escapeHtml(g.category)}</button>`
+    )
+    .join('') + `<button type="button" class="discover-tab" role="tab" data-group="all"><i></i>All spots</button>`;
+
+let applyMapFilter = () => {};   // filled in once the map exists
+
+function setFilter(key) {
+  document.querySelectorAll('.discover-group').forEach((el) => {
+    el.hidden = key !== 'all' && el.dataset.group !== key;
+  });
+  tabsEl.querySelectorAll('.discover-tab').forEach((tab) => {
+    const on = tab.dataset.group === key;
+    tab.setAttribute('aria-selected', String(on));
+    tab.tabIndex = on ? 0 : -1;
+  });
+  document.querySelectorAll('#discover-legend .legend-chip[data-group]').forEach((chip) => {
+    chip.setAttribute('aria-pressed', String(key === 'all' || chip.dataset.group === key));
+  });
+  applyMapFilter(key);
+}
+
+tabsEl.addEventListener('click', (e) => {
+  const tab = e.target.closest('.discover-tab');
+  if (tab) setFilter(tab.dataset.group);
+});
+tabsEl.addEventListener('keydown', (e) => {
+  const step = { ArrowRight: 1, ArrowLeft: -1 }[e.key];
+  if (!step) return;
+  e.preventDefault();
+  const all = [...tabsEl.querySelectorAll('.discover-tab')];
+  const next = all[(all.findIndex((t) => t.getAttribute('aria-selected') === 'true') + step + all.length) % all.length];
+  setFilter(next.dataset.group);
+  next.focus();
+});
+document.getElementById('discover-legend').addEventListener('click', (e) => {
+  const chip = e.target.closest('.legend-chip[data-group]');
+  if (chip) setFilter(chip.dataset.group);
+});
 
 /* ---------- Interactive map (Leaflet + CARTO light tiles) ---------- */
 const reduce = prefersReducedMotion();
@@ -210,6 +255,7 @@ function initMap() {
     });
 
   const markers = {};
+  const markerGroups = {};
 
   // Venues = home plate (the theatre and the event hotel).
   venues.forEach((v) => {
@@ -248,9 +294,18 @@ function initMap() {
     marker.on('mouseover', () => document.getElementById(`card-${place.id}`)?.classList.add('is-cued'));
     marker.on('mouseout', () => document.getElementById(`card-${place.id}`)?.classList.remove('is-cued'));
     markers[place.id] = marker;
+    markerGroups[place.id] = place.groupKey;
   });
 
   map.fitBounds(bounds, { padding: [40, 40] });
+
+  // Dim the pins that aren't in the selected category (all pins stay on the map for context).
+  applyMapFilter = (key) => {
+    Object.entries(markers).forEach(([id, marker]) => {
+      marker.getElement()?.classList.toggle('is-dim', key !== 'all' && markerGroups[id] !== key);
+    });
+  };
+  applyMapFilter(activeFilter);
 
   // "See the card ↓" inside a popup → scroll to and flash that card.
   el.addEventListener('click', (e) => {
@@ -302,5 +357,7 @@ document.getElementById('discover-content').addEventListener('keydown', (e) => {
   }
 });
 
+const activeFilter = groups[0].key;
 initMap();
+setFilter(activeFilter);
 initReveal();
