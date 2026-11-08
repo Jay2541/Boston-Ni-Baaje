@@ -2,8 +2,9 @@
 //
 // Committee photos: drop image files into src/assets/board/ named `<slug>-1.jpg`,
 // `<slug>-2.jpg`, ... (jpg, jpeg, png or webp) and they appear in that committee's
-// gallery automatically, e.g. `tech-1.jpg`, `head-liaison-1.webp`. Until a committee
-// has a photo, the page shows a "photo coming soon" placeholder.
+// card in the board strip automatically (the first photo is used), e.g. `tech-1.jpg`,
+// `head-liaison-1.webp`. Until a committee has a photo, its card shows a brand-colored
+// stand-in with the logo.
 // Tip: resize photos to about 1600px wide first so the page stays fast.
 export const BOARD = [
   { slug: 'directors', category: 'Directors', members: ['Maya Mehta', 'Diya Chatwani'] },

@@ -23,52 +23,79 @@
     />
     <link rel="stylesheet" href="/src/style.css" />
   </head>
-  <body>
+  <body class="has-video-hero">
     <header id="site-header"></header>
 
-    <section class="hero">
-      <div class="hero-particles"></div>
-      <div class="hero-video" id="hero-video" hidden>
-        <video controls playsinline preload="metadata" poster="/video/hero-poster.jpg">
-          <source src="/video/hero.mp4" type="video/mp4" />
-        </video>
-      </div>
+    <section class="hero hero--video">
+      <video
+        class="hero-bg"
+        id="hero-video"
+        muted
+        loop
+        playsinline
+        preload="auto"
+        poster="/video/hero-poster.jpg"
+        aria-hidden="true"
+      >
+        <source src="/video/hero.mp4" type="video/mp4" />
+      </video>
+      <div class="hero-scrim"></div>
       <div class="hero-content">
         <span class="hero-badge"><span class="dot"></span> Huntington Theatre, Boston</span>
         <h1>Boston Ni Baaje</h1>
-        <p class="subtitle gradient-text">#TakeMeOutToBNB</p>
+        <p class="subtitle">#TakeMeOutToBNB</p>
         <p class="lead">
           Boston's newest collegiate Garba Raas competition takes the stage in the heart of Back Bay.
           Minutes away from Fenway, BNB is bringing the energy of Raas to one of Boston's most iconic
           neighborhoods, welcoming teams from across the country for a weekend of competition and
           culture.
         </p>
+        <div class="countdown-wrap">
+          <span class="countdown-label">Until First Pitch</span>
+          <div class="countdown" id="countdown" role="timer" aria-live="off"></div>
+        </div>
         <div class="hero-cta">
           <a class="btn btn-primary" href="schedule.html">View Schedule &rarr;</a>
           <a class="btn btn-outline" href="app.html">📱 Get the App</a>
         </div>
       </div>
+      <div class="hero-controls">
+        <button type="button" class="hero-ctrl" id="hero-play" aria-label="Pause video"></button>
+        <button type="button" class="hero-ctrl" id="hero-sound" aria-label="Turn sound on"></button>
+      </div>
+      <a class="hero-scroll" href="#about" aria-label="Scroll to About Us"><span></span></a>
     </section>
 
     <main>
       <section id="about" class="reveal">
-        <div class="section-head">
-          <span class="eyebrow">Who We Are</span>
-          <h2>About Us</h2>
-          <p>
-            Boston Ni Baaje, created to celebrate and elevate South Asian culture in New England, brings
-            together some of the nation&rsquo;s most talented collegiate Garba-Raas teams for a showcase
-            of tradition, artistry, and community.
-          </p>
-        </div>
-        <div class="stats">
-          <div class="stat">
-            <div class="stat-value" data-target="8" data-suffix="">0</div>
-            <div class="stat-label">Collegiate Teams</div>
+        <div class="about-grid">
+          <div class="about-copy">
+            <span class="eyebrow">About Us</span>
+            <h2>Bringing Raas to the heart of Boston.</h2>
+            <p>
+              Boston Ni Baaje was created to celebrate and elevate South Asian culture in New England,
+              bringing together some of the nation&rsquo;s most talented collegiate Garba-Raas teams for a
+              showcase of tradition, artistry, and community.
+            </p>
+            <a class="btn-ghost" href="board.html">Meet the board &rarr;</a>
           </div>
-          <div class="stat">
-            <div class="stat-value" data-target="400" data-suffix="+">0</div>
-            <div class="stat-label">Guests Expected</div>
+          <div class="about-stats">
+            <div class="stat">
+              <div class="stat-value" data-target="8" data-suffix="">0</div>
+              <div class="stat-label">Collegiate Teams</div>
+            </div>
+            <div class="stat">
+              <div class="stat-value" data-target="400" data-suffix="+">0</div>
+              <div class="stat-label">Guests Expected</div>
+            </div>
+            <div class="stat">
+              <div class="stat-value" data-target="2" data-suffix="">0</div>
+              <div class="stat-label">Days in Boston</div>
+            </div>
+            <div class="stat">
+              <div class="stat-value" data-target="1" data-suffix="st">0</div>
+              <div class="stat-label">Edition of BNB</div>
+            </div>
           </div>
         </div>
       </section>
@@ -79,36 +106,46 @@
           <h2>The Weekend</h2>
         </div>
         <div class="card-grid">
-          <div class="card reveal">
-            <span class="card-icon">🗓️</span>
+          <a class="card reveal" href="schedule.html">
+            <span class="card-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>
+            </span>
             <h3>Full Schedule</h3>
-            <p>Check-in, rehearsals, competition, and awards, all in one place.</p>
-          </div>
+            <p>Check-in, rehearsals, the competition, and awards, all in one place.</p>
+            <span class="card-link">View the schedule &rarr;</span>
+          </a>
           <a class="card reveal" href="teams.html">
-            <span class="card-icon">🏆</span>
+            <span class="card-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0V4zM7 6H4v1a3 3 0 0 0 3 3M17 6h3v1a3 3 0 0 1-3 3"/></svg>
+            </span>
             <h3>Live Competition</h3>
-            <p>Collegiate teams from across the region, judged by experienced Raas alumni. Meet the lineup &rarr;</p>
+            <p>Collegiate teams from across the country, judged by experienced Raas alumni.</p>
+            <span class="card-link">Meet the teams &rarr;</span>
           </a>
           <a class="card reveal" href="discover.html">
-            <span class="card-icon">⚾</span>
+            <span class="card-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M7.5 4.2c1.6 2.1 2.5 4.9 2.5 7.8s-.9 5.7-2.5 7.8M16.5 4.2C14.9 6.3 14 9.1 14 12s.9 5.7 2.5 7.8"/></svg>
+            </span>
             <h3>Welcome to Fenway</h3>
-            <p>Back Bay location. Fenway just around first base. Explore &rarr;</p>
+            <p>Our Back Bay venue is just around first base from Fenway Park. Find food and fun nearby.</p>
+            <span class="card-link">Explore the area &rarr;</span>
           </a>
         </div>
       </section>
 
       <section id="cause" class="reveal">
-        <div class="section-head">
-          <span class="eyebrow">Giving Back</span>
-          <h2>Dancing for a Cause</h2>
-          <p>
-            Boston Ni Baaje 1.0 is proud to support the <strong>American Heart Association</strong>.
-            A portion of proceeds from the weekend goes toward their mission to fight heart disease and
-            stroke, the country's leading causes of death.
-          </p>
-        </div>
-        <div class="hero-cta">
-          <a class="btn btn-outline" href="https://www.heart.org/" target="_blank" rel="noopener">Learn About the AHA &rarr;</a>
+        <div class="cause-strip">
+          <span class="cause-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M12 21s-7.5-4.6-9.5-9.3C1.1 8.4 3.2 5 6.6 5c2 0 3.5 1.1 4.4 2.6h2C13.9 6.1 15.4 5 17.4 5c3.4 0 5.5 3.4 4.1 6.7C19.5 16.4 12 21 12 21z"/></svg>
+          </span>
+          <div class="cause-copy">
+            <span class="eyebrow">Dancing for a Cause</span>
+            <p>
+              A portion of the weekend&rsquo;s proceeds supports the <strong>American Heart Association</strong>
+              and its fight against heart disease and stroke, the country&rsquo;s leading causes of death.
+            </p>
+          </div>
+          <a class="btn btn-outline" href="https://www.heart.org/" target="_blank" rel="noopener">About the AHA &rarr;</a>
         </div>
       </section>
 
@@ -117,7 +154,7 @@
           <h2>Be Part of the First</h2>
           <p>Whether you're competing, cheering, or sponsoring, there's a place for you at Boston Ni Baaje 1.0.</p>
           <div class="hero-cta">
-            <a class="btn btn-primary" href="schedule.html">See the Lineup &rarr;</a>
+            <a class="btn btn-primary" href="teams.html">See the Lineup &rarr;</a>
             <a class="btn btn-outline" href="sponsors.html">Sponsor Us</a>
           </div>
         </div>

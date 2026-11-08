@@ -4,6 +4,8 @@ export const EVENT = {
   edition: '1.0',
   theme: 'Fenway',
   tagline: "Boston's newest collegiate Raas competition.",
+  // Show start, used for the homepage countdown. ISO 8601 with Boston's offset (-05:00 in winter).
+  startISO: '2027-02-27T17:00:00-05:00',
   venue: {
     name: 'Huntington Theatre',
     org: 'Boston, MA',
