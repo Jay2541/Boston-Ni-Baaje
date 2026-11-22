@@ -2,8 +2,8 @@
 // These are public client keys (safe to ship in the frontend). Security comes
 // from Firestore security rules + Auth, not from hiding these values.
 import { initializeApp } from 'firebase/app';
-import { getAuth } from 'firebase/auth';
-import { getFirestore } from 'firebase/firestore';
+import { getAuth, connectAuthEmulator } from 'firebase/auth';
+import { getFirestore, initializeFirestore, connectFirestoreEmulator } from 'firebase/firestore';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyB5pgda5BZkSkzDlm0Wr-1WKw70MKU_Hqk',
@@ -16,7 +16,18 @@ const firebaseConfig = {
 
 export const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
-export const db = getFirestore(app);
+// Against the local emulator (plain HTTP/1.1), force long-polling: its streaming
+// transport can stall writes when several test browsers are connected.
+export const db = import.meta.env.VITE_USE_EMULATORS
+  ? initializeFirestore(app, { experimentalForceLongPolling: true })
+  : getFirestore(app);
+
+// Local testing only: `VITE_USE_EMULATORS=1 npm run dev` talks to the Firebase
+// emulators (and VITE_WORKER_URL, if set) instead of the real project.
+if (import.meta.env.VITE_USE_EMULATORS) {
+  connectAuthEmulator(auth, 'http://127.0.0.1:9099', { disableWarnings: true });
+  connectFirestoreEmulator(db, '127.0.0.1', 8080);
+}
 
 // Web push (FCM) VAPID public key. Safe to ship — it's the public half of the
 // key pair (Firebase console → Project settings → Cloud Messaging → Web Push certificates).
@@ -25,4 +36,5 @@ export const VAPID_PUBLIC_KEY =
 
 // URL of the Cloudflare Worker that subscribes devices + sends broadcasts.
 // Deployed from worker/ (see worker/README.md).
-export const PUSH_WORKER_URL = 'https://bnb-push.bnb-dev.workers.dev';
+export const PUSH_WORKER_URL =
+  import.meta.env.VITE_WORKER_URL || 'https://bnb-push.bnb-dev.workers.dev';

@@ -15,6 +15,7 @@ export default defineConfig({
         app: resolve(__dirname, 'app.html'),
         board: resolve(__dirname, 'board.html'),
         resources: resolve(__dirname, 'resources.html'),
+        chat: resolve(__dirname, 'chat.html'),
       },
     },
   },

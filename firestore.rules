@@ -1,69 +1,87 @@
 rules_version = '2';
 
-// Firestore security rules for the Boston Ni Baaje team portal.
+// Firestore security rules for the Boston Ni Baaje app.
 //
 // HOW TO APPLY: Firebase console → Build → Firestore Database → Rules tab →
 // paste this whole file → Publish.
 //
-// Model: one thread per team (doc id = team id, e.g. "northeastern").
-//   - A team account can read/write ONLY its own thread.
-//   - The board account can read/write ALL threads.
+// Who someone is comes from members/{uid} (uid = their phone number, e.g.
+// "+16175551234"). Only the Cloudflare Worker writes members/, secrets/,
+// joinCodes/ and rateLimits/ — it uses the service account, which skips these
+// rules — so clients can never make themselves a director.
 //
-// The email→team map below MUST match src/data/members.js. When the real teams
-// are confirmed, update BOTH files together (emails are login IDs, not secrets).
+// Chats (keep in sync with chatsFor()/canPost() in worker/src/worker.js):
+//   announcements — everyone reads; board + directors post
+//   board         — board + directors
+//   team-{teamId} — that team's dancers + liaisons, plus directors
 
 service cloud.firestore {
-
-  function boardEmail() {
-    return 'board@bostonnibaaje.com';
-  }
-
-  // email → teamId. Keep in sync with TEAM_ACCOUNTS in src/data/members.js.
-  function teamMap() {
-    return {
-      'northeastern@bnb.team': 'northeastern',
-      'uconn@bnb.team': 'uconn',
-      'gatech@bnb.team': 'gatech',
-      'cmu@bnb.team': 'cmu',
-      'utd@bnb.team': 'utd',
-      'texas@bnb.team': 'texas',
-      'uf@bnb.team': 'uf',
-      'ucf@bnb.team': 'ucf'
-    };
-  }
-
-  function userEmail() {
-    return request.auth != null ? request.auth.token.email : '';
-  }
-
-  function isBoard() {
-    return request.auth != null && userEmail() == boardEmail();
-  }
-
-  function ownsTeam(teamId) {
-    return request.auth != null && teamMap()[userEmail()] == teamId;
-  }
-
   match /databases/{database}/documents {
 
-    // Team threads + their messages.
-    match /threads/{teamId} {
-      allow read, write: if isBoard() || ownsTeam(teamId);
+    function memberPath() {
+      return /databases/$(database)/documents/members/$(request.auth.uid);
+    }
+    function isMember() {
+      return request.auth != null && exists(memberPath());
+    }
+    function me() {
+      return get(memberPath()).data;
+    }
+    function isDirector() {
+      return isMember() && me().role == 'director';
+    }
+    function isStaff() {
+      return isMember() && me().role in ['director', 'board'];
+    }
+
+    function canRead(chatId) {
+      return isMember() && (
+        chatId == 'announcements' ||
+        (chatId == 'board' && me().role in ['director', 'board']) ||
+        (chatId.matches('team-[a-z0-9]+') &&
+          (me().role == 'director' || chatId == 'team-' + me().get('teamId', '')))
+      );
+    }
+    function canPost(chatId) {
+      return chatId == 'announcements' ? isStaff() : canRead(chatId);
+    }
+
+    // Member directory — any member can read it (to show names). Worker-only writes.
+    match /members/{uid} {
+      allow read: if isMember();
+      allow write: if false;
+    }
+
+    // Chat list metadata (last message preview) + messages.
+    match /chats/{chatId} {
+      allow read: if canRead(chatId);
+      allow create, update: if canPost(chatId) &&
+        request.resource.data.keys().hasOnly(['lastMessage', 'lastFrom', 'updatedAt']);
+      allow delete: if false;
 
       match /messages/{messageId} {
-        allow read:   if isBoard() || ownsTeam(teamId);
-        allow create: if isBoard() || ownsTeam(teamId);
+        allow read: if canRead(chatId);
+        allow create: if canPost(chatId) &&
+          request.resource.data.keys().hasOnly(['text', 'uid', 'name', 'createdAt']) &&
+          request.resource.data.uid == request.auth.uid &&
+          request.resource.data.text is string &&
+          request.resource.data.text.size() > 0 &&
+          request.resource.data.text.size() <= 1000;
         // History is immutable — no edits or deletes.
         allow update, delete: if false;
       }
     }
 
-    // Announcements ("Updates" feed): anyone can read; only the board posts.
-    // (Push delivery is handled by the Cloudflare Worker via FCM topics, not Firestore.)
+    // Announcements: the public Updates feed AND the in-app announcements chat.
+    // Anyone can read; board + directors post; directors can fix/remove.
+    // (Push delivery is handled by the Cloudflare Worker via FCM topics.)
     match /announcements/{id} {
-      allow read:   if true;
-      allow create: if isBoard();
-      allow update, delete: if isBoard();
+      allow read: if true;
+      allow create: if isStaff();
+      allow update, delete: if isDirector();
     }
+
+    // secrets/, joinCodes/, rateLimits/ and the retired threads/ have no rules
+    // here, so clients are denied by default.
   }
 }

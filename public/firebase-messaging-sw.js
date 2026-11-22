@@ -1,7 +1,8 @@
 /* Firebase Cloud Messaging service worker — handles background push.
-   Uses the compat CDN builds because service workers can't use bundled ES modules. */
-importScripts('https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js');
-importScripts('https://www.gstatic.com/firebasejs/10.12.2/firebase-messaging-compat.js');
+   Uses the compat CDN builds because service workers can't use bundled ES modules.
+   Keep the version in step with the `firebase` package in package.json. */
+importScripts('https://www.gstatic.com/firebasejs/12.16.0/firebase-app-compat.js');
+importScripts('https://www.gstatic.com/firebasejs/12.16.0/firebase-messaging-compat.js');
 
 firebase.initializeApp({
   apiKey: 'AIzaSyB5pgda5BZkSkzDlm0Wr-1WKw70MKU_Hqk',
@@ -25,14 +26,16 @@ messaging.onBackgroundMessage((payload) => {
   });
 });
 
-// Focus/open the app when a notification is tapped.
+// Open the chat the notification is about (or the app) when it's tapped.
 self.addEventListener('notificationclick', (event) => {
   event.notification.close();
-  const url = '/updates.html';
+  const url = event.notification.data?.link || '/chat.html';
   event.waitUntil(
     clients.matchAll({ type: 'window', includeUncontrolled: true }).then((wins) => {
       for (const w of wins) {
-        if (w.url.startsWith(self.location.origin) && 'focus' in w) return w.focus();
+        if (w.url.startsWith(self.location.origin) && 'focus' in w) {
+          return w.focus().then((c) => (c && 'navigate' in c ? c.navigate(url) : c));
+        }
       }
       return clients.openWindow(url);
     })

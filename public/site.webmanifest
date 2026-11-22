@@ -1,8 +1,8 @@
 {
   "name": "Boston Ni Baaje",
   "short_name": "BNB",
-  "description": "Boston's collegiate Raas competition — schedule, teams, and updates.",
-  "start_url": "./index.html",
+  "description": "Boston's collegiate Raas competition — chat, schedule, and updates.",
+  "start_url": "./chat.html",
   "scope": "./",
   "display": "standalone",
   "background_color": "#f6f1e7",
