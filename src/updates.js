@@ -96,7 +96,7 @@ function renderUpdate(u) {
     </article>`;
 }
 
-// The board posts announcements from the Director Console (Teams page → sign in),
+// Board + directors post announcements from the app's Announcements chat (chat.html),
 // so the Updates page is read-only: it just shows the feed + the notify opt-in.
 
 function escapeHtml(s) {

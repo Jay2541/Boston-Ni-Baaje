@@ -13,3 +13,10 @@ service-account*.json
 worker/node_modules
 worker/.wrangler
 worker/.dev.vars
+
+# Test run output
+tests/.dist
+tests/shots
+tests/push-log.jsonl
+firebase-debug.log
+firestore-debug.log

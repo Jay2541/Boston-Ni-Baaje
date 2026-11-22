@@ -27,11 +27,12 @@ npm run dev
 
 - `index.html` — homepage
 - `schedule.html` — event schedule, venue location, and contact
-- `teams.html` — competing-teams roster + team portal (real Firebase login + two-way chat with the directors; board account sees all threads)
-- `updates.html` — live announcements feed (board posts; everyone reads) + opt-in push notifications
+- `teams.html` — competing-teams roster + a link to the app for team chat
+- `updates.html` — live announcements feed (posted from the app's Announcements chat; everyone reads) + opt-in push notifications
 - `discover.html` — things to do around Boston (food, nightlife, sights, transit)
 - `sponsors.html` — sponsor logos, ad space, sponsorship contact
-- `app.html` — "Get the App" install instructions (iPhone + Android)
+- `app.html` — "Get the App": where team join links land (`app.html#join=<code>`) — sign up with phone + PIN, then install steps for the visitor's phone
+- `chat.html` — the app itself (opens from the home-screen icon): chats, info, and the directors' Manage screen
 
 ## Updating content
 
@@ -43,7 +44,8 @@ npm run dev
 - **Sponsor logos**: replace the placeholder `.sponsor-card` blocks in `sponsors.html` with
   `<img src="..." alt="Sponsor name" />`.
 - **Competing teams**: edit `src/data/teams.json` — an array of
-  `{ name, school, initials, color }`. These are placeholders until the lineup is confirmed.
+  `{ id, name, school, initials, color }`. `id` is lowercase letters/numbers only and is used in
+  join codes and chat ids (`team-<id>`), so don't change it once people have joined.
 - **Discover Boston spots**: edit `src/data/discover.json` — grouped `{ category, eyebrow, blurb, places[] }`.
 
 ## Deploying
@@ -109,18 +111,23 @@ then set `PUSH_WORKER_URL`.
 > insufficient, the fallback is a native App Store build (Capacitor wraps this same site) — that path
 > costs $99/yr for an Apple Developer account and requires a Mac.
 
-## Firebase (team portal + notifications)
+## The app: team chats with phone-number login
 
-The Teams page has a **real team portal** backed by Firebase (project `boston-ni-baaje`):
+The installed app (`chat.html`) is the main way everyone communicates during the event:
 
-- **Team login** (Firebase Auth, one shared account per team) + a **board/director account**.
-- **Two-way real-time chat** (Firestore): each team has a private thread; the board account sees
-  every thread and can reply. History is immutable.
-- Code lives in `src/firebase.js`, `src/portal.js`, `src/data/members.js`; rules in `firestore.rules`.
+- **Chats:** Announcements (everyone reads; board + directors post), a private Board chat, and one
+  chat per team (that team's dancers + liaison(s) + the directors).
+- **Login is phone number + PIN, and it's free.** No SMS is sent (that needs Firebase's paid Blaze
+  plan). Instead each team has **one join link** that a captain posts in their group chat; anyone
+  with it can sign up for that team. Directors can remove people, reset PINs, and swap a team's
+  link from the app's **Manage** tab.
+- The Cloudflare Worker in `worker/` checks join codes and PINs and issues Firebase custom tokens,
+  so Firestore security rules (`firestore.rules`) still decide who can read what.
+- Code: `src/chat.js` (app), `src/app.js` (join + install page), `src/api.js` (Worker calls),
+  `src/data/chat.js` (chats + members), `src/push.js` (notifications).
 
-**⚠️ Not live until you finish the console steps in [`FIREBASE_SETUP.md`](./FIREBASE_SETUP.md):**
-enable Email/Password auth, create the accounts (deferred until the competing teams are confirmed),
-and publish `firestore.rules`. **Push notifications (Phase 1) are not built yet** — see that doc.
+**Setup steps are in [`FIREBASE_SETUP.md`](./FIREBASE_SETUP.md)** (Firestore rules, Worker deploy,
+first director).
 
-When the real teams are known, update `src/data/members.js` **and** `firestore.rules` together so the
-emails/team ids match, then create the matching users in the console.
+**Tests:** `cd tests && npm install && npm test` runs the worker, security-rules and end-to-end
+tests locally against the Firebase emulators. See [`tests/README.md`](./tests/README.md).

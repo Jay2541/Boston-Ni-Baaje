@@ -1,0 +1,15 @@
+{
+  "name": "bnb-tests",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "firebase emulators:exec --only auth,firestore --project boston-ni-baaje --config ../firebase.json \"node run-all.mjs\"",
+    "test:worker": "node worker-unit.mjs"
+  },
+  "devDependencies": {
+    "@firebase/rules-unit-testing": "5.0.2",
+    "firebase": "12.16.0",
+    "firebase-tools": "15.34.0",
+    "puppeteer-core": "25.15.0"
+  }
+}

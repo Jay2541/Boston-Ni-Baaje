@@ -5,6 +5,16 @@ const BASE = import.meta.env.BASE_URL;
 // Point the Fenway backdrop (hero + subtle site-wide wash) at the base-aware image path.
 document.documentElement.style.setProperty('--fenway-bg', `url("${BASE}fenway-bg.jpg")`);
 
+// True when running from the home-screen icon (installed PWA), not a browser tab.
+export const isStandalone =
+  window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+
+// Older installs launch at index.html (the manifest's old start_url). Send a
+// fresh launch straight to the app; in-app navigation (has a referrer) stays put.
+if (isStandalone && /\/(index\.html)?$/.test(location.pathname) && !document.referrer) {
+  location.replace(`${BASE}chat.html`);
+}
+
 // Register the service worker so the site is installable as an app (PWA).
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
@@ -46,10 +56,15 @@ export function renderHeader(activePage) {
         <img src="${BASE}logo.png" alt="Boston Ni Baaje" class="brand-logo" />
       </a>
       <nav class="nav">${links}</nav>
-      <a href="${BASE}teams.html#team-portal" class="login-pill${activePage === 'teams.html' ? ' active' : ''}">
-        <span class="login-pill-icon" aria-hidden="true">⚿</span>
-        <span class="login-pill-text">Team Login</span>
-      </a>
+      ${isStandalone
+        ? `<a href="${BASE}chat.html" class="login-pill">
+            <span class="login-pill-icon" aria-hidden="true">💬</span>
+            <span class="login-pill-text">Chats</span>
+          </a>`
+        : `<a href="${BASE}app.html" class="login-pill${activePage === 'app.html' ? ' active' : ''}">
+            <span class="login-pill-icon" aria-hidden="true">📱</span>
+            <span class="login-pill-text">Get the App</span>
+          </a>`}
       <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
